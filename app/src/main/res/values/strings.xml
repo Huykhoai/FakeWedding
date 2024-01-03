@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Future Love</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="input">Name &amp; Image Input</string>
+    <string name="photos">Photos</string>
+    <string name="todo">TODO</string>
+    <string name="Open">Navigation</string>
+    <string name="Close">Mavigation</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name_desc">Lorem ipsum dolor sit amet consectetur. \nLacus pulvinar vitae tempor</string>
+    <string name="user_name">User name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="ask_reset_password">Do you want to reset password?</string>
+    <string name="ask_having_account">Don’t have an account?</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="search">Search</string>
+    <string name="event_detail">Our first date was a mix of nervousness and excitement. We shared stories</string>
+    <string name="enter_your_user_name">A user name with a minimum length of 8 characters, containing no special characters, except \"_\"</string>
+    <string name="enter_your_email">Follow the email rule: abc@abc.abc</string>
+    <string name="enter_your_password">A password with a minimum length of 8 characters, containing no special characters, except \"_\"</string>
+    <string name="enter_name">Enter name</string>
+    <string name="click_here"><![CDATA[<-- Click here]]></string>
+    <string name="_1">1</string>
+    <string name="skip_login">Skip Login</string>
+    <string name="content">Content</string>
+    <string name="address">Address</string>
+    <string name="device_name">Device name</string>
+    <string name="time">time</string>
+    <string name="btn_user_account">btn user account</string>
+    <string name="username">Username</string>
+    <string name="home">Home</string>
+    <string name="comment">Comment</string>
+    <string name="pairing">Pairing</string>
+    <string name="video">Video</string>
+    <string name="choose_file">Choose file</string>
+    <string name="video_swap">Video Swap</string>
+    <string name="ghjkl">TODO</string>
+</resources>
