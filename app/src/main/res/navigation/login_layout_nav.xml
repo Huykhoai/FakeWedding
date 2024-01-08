@@ -12,6 +12,10 @@
             app:destination="@+id/registerFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"/>
+        <action android:id="@+id/action_loginFragment_to_forgotFragment"
+            app:destination="@+id/forgotFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -20,6 +24,18 @@
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginfragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotFragment"
+        android:name="com.example.fakewedding.fragment.ForgotPassFragment"
+        android:label="fragment_forgot"
+        tools:layout="@layout/fragment_forgot_pass">
+        <action
+            android:id="@+id/action_forgotpassFragment_to_loginFragment"
             app:destination="@id/loginfragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_right"

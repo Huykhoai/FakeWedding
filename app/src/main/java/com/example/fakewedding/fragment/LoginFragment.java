@@ -1,6 +1,7 @@
 package com.example.fakewedding.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.fakewedding.R;
+import com.example.fakewedding.activity.MainActivity;
 import com.example.fakewedding.api.QueryValueCallBack;
 import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.FragmentLoginBinding;
@@ -46,13 +48,19 @@ public class LoginFragment extends Fragment {
         View view = binding.getRoot();
         btnRegister();
         BtnLogin();
+        navForgotFragment();
         SharedPreferences spf = getActivity().getSharedPreferences("THONGTIN", Context.MODE_PRIVATE);
         binding.editEmailLogin.setText(spf.getString("EMAIL", ""));
         binding.editPassLogin.setText(spf.getString("PASSWORD", ""));
         binding.remember.setChecked(spf.getBoolean("REMEMBER",false));
         return view;
     }
-
+    private void navForgotFragment(){
+        binding.forgotpass.setOnClickListener(v -> {
+            NavController nav = NavHostFragment.findNavController(this);
+            nav.navigate(R.id.action_loginFragment_to_forgotFragment);
+        });
+    }
     private void BtnLogin(){
 
             binding.btnLogin.setOnClickListener(v -> {
@@ -71,10 +79,7 @@ public class LoginFragment extends Fragment {
             public void onQueryValueReceived(String query) {
                 if(query.contains("Logined in successfully")){
                     Toast.makeText(getActivity(), "Login Thành công", Toast.LENGTH_SHORT).show();
-//                    SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putBoolean("LOGIN_STATE", true);
-//                    editor.apply();
+                   startActivity(new Intent(getActivity(), MainActivity.class));
                     binding.tilPass.setError("");
                 }else if(query.contains("Invalid in Password!!")){
                     binding.tilPass.setError("Invalid in Password!!");

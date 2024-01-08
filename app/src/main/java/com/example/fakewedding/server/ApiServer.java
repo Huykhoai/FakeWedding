@@ -1,6 +1,5 @@
 package com.example.fakewedding.server;
 
-import com.example.fakewedding.model.DetailEventListParent;
 import com.example.fakewedding.model.Login;
 
 import retrofit2.Call;
@@ -27,9 +26,6 @@ public interface ApiServer {
             @Field("link_avatar") String linkAvatar,
             @Field("ip_register") String registerIp
     );
-    @GET(Server.URI_LIST_EVENT_HOME+ "{page}")
-    Call<DetailEventListParent> getEventListforHome(
-            @Path("page") long id,
-            @Query("id_user")int id_user);
+
 }
 
