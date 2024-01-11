@@ -1,8 +1,11 @@
 package com.example.fakewedding.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fakewedding.R;
+import com.example.fakewedding.activity.SwapingActivity;
 import com.example.fakewedding.adapter.Home6Viewpaper;
 import com.example.fakewedding.databinding.FragmentHomeBinding;
 import com.example.fakewedding.model.PagerHome6;
@@ -34,6 +38,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         ViewpaperHome6();
+        navSwapFragment();
         return binding.getRoot();
     }
     private void ViewpaperHome6(){
@@ -46,5 +51,13 @@ public class HomeFragment extends Fragment {
         home6Viewpaper = new Home6Viewpaper(getActivity(),list);
         binding.viewPaperHome6.setAdapter(home6Viewpaper);
         binding.circleIndicator.setViewPager(binding.viewPaperHome6);
+    }
+   private void navSwapFragment(){
+        binding.btnstartSwaping.setOnClickListener(v -> {
+//            NavController nav = NavHostFragment.findNavController(this);
+//            nav.navigate(R.id.action_homeFragment_to_SwapingFragment);
+            startActivity(new Intent(getActivity(), SwapingActivity.class));
+        });
+
     }
 }
