@@ -9,22 +9,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.fakewedding.R;
+import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.ActivitySwapingBinding;
 import com.example.fakewedding.databinding.FragmentStartSwapFaceBinding;
 import com.example.fakewedding.dialog.MyDialog;
+import com.example.fakewedding.server.ApiServer;
+import com.example.fakewedding.server.Server;
+import com.example.fakewedding.until.Util;
 import com.google.android.gms.tasks.Task;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.face.Face;
@@ -33,8 +44,18 @@ import com.google.mlkit.vision.face.FaceDetector;
 import com.google.mlkit.vision.face.FaceDetectorOptions;
 import com.google.mlkit.vision.face.FaceLandmark;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class SwapingActivity extends AppCompatActivity {
     ActivitySwapingBinding binding;
@@ -50,10 +71,9 @@ public class SwapingActivity extends AppCompatActivity {
     private String imgBase64Female;
     private String urlImageMale;
     private String urlImageFemale;
-
-    private String maleName = "";
-    private String femaleName = "";
-    private MainActivity mainActivity;
+    String uriResponse;
+    File imageFile;
+    Uri selectedImage;
     private MyDialog myDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +81,7 @@ public class SwapingActivity extends AppCompatActivity {
         binding = ActivitySwapingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loadIdUser();
-        navUploadActivity();
+        initListener();
     }
     private void loadIdUser() {
         SharedPreferences sharedPreferences = getSharedPreferences("id_user",0);
@@ -108,7 +128,7 @@ public class SwapingActivity extends AppCompatActivity {
 
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(mainActivity, "Fail to recognize face", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SwapingActivity.this, "Fail to recognize face", Toast.LENGTH_SHORT).show();
                 });
         return resultDetech;
     }
@@ -157,7 +177,7 @@ public class SwapingActivity extends AppCompatActivity {
         }
         return result;
     }
-    private void navUploadActivity() {
+    private void initListener() {
         binding.btnswap1.setOnClickListener(v -> {
             checkClickSetImageMale =true;
             Intent intent = new Intent(SwapingActivity.this, UploadActivity.class);
@@ -169,27 +189,157 @@ public class SwapingActivity extends AppCompatActivity {
             Intent intent = new Intent(SwapingActivity.this, UploadActivity.class);
             launcher.launch(intent);
         });
+        binding.btnGenerate.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            public void onClick(View v) {
+//                if (!isCheckSetImageFemale || !isCheckSetImageMale) {
+//                    myDialog = getDialog();
+//                    myDialog.setTitle("Can not Face recognition");
+//                    myDialog.setContent("Not enough faces have been identified");
+//                    myDialog.setContentButton("Ok");
+//                    myDialog.show();
+//                }else {
+//                    Toast.makeText(SwapingActivity.this, "Please waiting a time!", Toast.LENGTH_SHORT).show();
+//                    lockBtnSelectImage();
+//                    new AsyncTask<Void, Void, Void>() {
+//                        @Override
+//                        protected Void doInBackground(Void... voids) {
+//                            urlImageMale = Util.uploadImage2(imgBase64Male,SwapingActivity.this);
+//                            urlImageFemale = Util.uploadImage2(imgBase64Female,SwapingActivity.this);
+//                            Log.d("Huy", "Male Image URL: " + urlImageMale + "\nFemale Image URL: " + urlImageFemale);
+//                            return null;
+//                        }
+//                    };
+//                }
+            }
+        });
     }
+   private void getData(){
+        String filePath =getRealPathFromURI(SwapingActivity.this,selectedImage);
+        imageFile =new File(filePath);
+       Log.d("check_upload_image", "getData_0: "+ imageFile);
+       RequestBody requestBody =RequestBody.create(MediaType.parse("multipart/form-data"),imageFile);
+       MultipartBody.Part imagePart =MultipartBody.Part.createFormData("src_img",imageFile.getName(),requestBody);
+       ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
+       Log.d("check_upload_image", "getData: "+ id_user + imagePart);
+       if(checkClickSetImageMale){
+           Call<String>call = apiServer.uploadImage(id_user, "src_nam", imagePart);
+           call.enqueue(new Callback<String>() {
+               @Override
+               public void onResponse(Call<String> call, Response<String> response) {
+                  if(response.isSuccessful()){
+                      Log.d("check_upload_image", "onResponse: "+ response.body());
+                        uriResponse = response.body();
+                        binding.imageswap1.setImageURI(selectedImage);
+                  }
+               }
 
+               @Override
+               public void onFailure(Call<String> call, Throwable t) {
+                   Log.d("check_upload_image", "onFailure: "+ t.getMessage());
+               }
+           });
+       }else {
+           Call<String>call = apiServer.uploadImage(id_user, "src_nu", imagePart);
+           call.enqueue(new Callback<String>() {
+               @Override
+               public void onResponse(Call<String> call, Response<String> response) {
+                   if(response.isSuccessful()){
+                       Log.d("check_upload_image", "onResponse: "+ response.body());
+                       uriResponse = response.body();
+                       binding.imageswap2.setImageURI(selectedImage);
+                   }
+               }
+
+               @Override
+               public void onFailure(Call<String> call, Throwable t) {
+                   Log.d("check_upload_image", "onFailure: "+ t.getMessage());
+               }
+           });
+       }
+
+
+   }
+    public static String getRealPathFromURI(Context context, Uri contentUri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(contentUri, projection, null, null, null);
+
+        if (cursor == null) {
+            return null;
+        }
+
+        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String filePath = cursor.getString(columnIndex);
+        cursor.close();
+
+        return filePath;
+    }
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult o) {
-                    if(o.getResultCode()== REQUEST_CODE){
-                        Intent intent = o.getData();
-                        if(intent!= null){
-                            Bundle bundle = intent.getExtras();
-                            Uri selectedImage = Uri.parse(bundle.getString("selected_image"));
-                            if(checkClickSetImageMale){
-                                binding.imageswap1.setImageURI(selectedImage);
-                            }else {
-                                binding.imageswap2.setImageURI(selectedImage);
-                            }
+                    if (o.getResultCode() == REQUEST_CODE) {
+                        try {
+                            Intent intent = o.getData();
+                            if (intent != null) {
+                                Bundle bundle = intent.getExtras();
+                                 selectedImage = Uri.parse(bundle.getString("selected_image"));
+                                 getData();
+                                 Bitmap bitmap;
 
+                                bitmap = MediaStore.Images.Media.getBitmap(SwapingActivity.this.getContentResolver(), selectedImage);
+                                Log.d("Huybimap", "onActivityResult: "+bitmap);
+                                if (checkClickSetImageMale) {
+                                    detectionFace(bitmap);
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (resultDetech != null && resultDetech.equals("ok")) {
+                                                try {
+                                                    imgBase64Male = Util.convertBitmapToBase64(bitmap);
+                                                } catch (IOException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                                isCheckSetImageMale = true;
+                                            } else {
+                                                isCheckSetImageMale = false;
+                                            }
+                                        }
+                                    }, 4000);
+                                } else {
+                                    detectionFace(bitmap);
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (resultDetech != null && resultDetech.equals("ok")) {
+                                                try {
+                                                    imgBase64Female = Util.convertBitmapToBase64(bitmap);
+                                                } catch (IOException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                                isCheckSetImageFemale = true;
+                                            } else {
+                                                isCheckSetImageFemale = false;
+                                            }
+                                        }
+                                    }, 4000);
+                                }
+
+                            }
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
                         }
                     }
-
                 }
             });
+    private void lockBtnSelectImage() {
+        binding.btnswap1.setEnabled(false);
+        binding.btnswap2.setEnabled(false);
+        binding.btnGenerate.setEnabled(false);
+    }
 }
