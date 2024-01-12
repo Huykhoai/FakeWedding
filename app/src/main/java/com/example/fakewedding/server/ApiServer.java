@@ -1,12 +1,14 @@
 package com.example.fakewedding.server;
 
 import com.example.fakewedding.model.Login;
+import com.example.fakewedding.model.Message;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -36,5 +38,10 @@ public interface ApiServer {
             @Query("type") String fileType,
             @Part MultipartBody.Part src_img
             );
+    @FormUrlEncoded
+    @POST(Server.URI_FORGOT_PASS)
+    Call<Message> sendData(
+            @Field("email") String email
+    );
 }
 

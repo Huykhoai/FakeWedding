@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sign in"
                 android:textColor="@color/white"
-                android:background="@drawable/btn_login"
+                android:background="@drawable/btn_swap"
                 android:id="@+id/btn_register"
                 android:layout_marginTop="10dp"/>
             <RelativeLayout

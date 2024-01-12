@@ -68,10 +68,12 @@ public class SwapingActivity extends AppCompatActivity {
     private boolean isCheckSetImageFemale = false;
     private boolean isCheckSetImageMale = false;
     int id_user ;
+    String author;
     private String imgBase64Female;
     private String urlImageMale;
     private String urlImageFemale;
-    String uriResponse;
+    String uriResponseMale;
+    String uriResponseFemale;
     File imageFile;
     Uri selectedImage;
     private MyDialog myDialog;
@@ -86,6 +88,8 @@ public class SwapingActivity extends AppCompatActivity {
     private void loadIdUser() {
         SharedPreferences sharedPreferences = getSharedPreferences("id_user",0);
         String id_user_str = sharedPreferences.getString("id_user", "");
+        author = sharedPreferences.getString("token", "");
+        Log.d("check_user_author", "loadIdUser: "+ author);
         Log.d("check_user_id", "loadIdUser: "+ id_user_str);
         if (id_user_str == "") {
             id_user = 0;
@@ -94,8 +98,8 @@ public class SwapingActivity extends AppCompatActivity {
         }
     }
 
-    private String detectionFace(Bitmap bitmap){
-        resultDetech ="";
+    private String detectionFace(Bitmap bitmap) {
+        resultDetech = "";
         FaceDetectorOptions options =
                 new FaceDetectorOptions.Builder()
                         .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
@@ -104,11 +108,12 @@ public class SwapingActivity extends AppCompatActivity {
                         .setMinFaceSize(0.15f)
                         .enableTracking()
                         .build();
+
         FaceDetector faceDetector = FaceDetection.getClient(options);
 
-        //tạo đối tượng InputImage từ bitmap
         InputImage image = InputImage.fromBitmap(bitmap, 0);
-        //nhận diện khuôn mặt từ ảnh
+
+        // Nhận dạng khuôn mặt từ ảnh
         Task<List<Face>> result = faceDetector.process(image)
                 .addOnSuccessListener(faces -> {
                     resultDetech = processFaceDetectionResult(faces);
@@ -120,16 +125,17 @@ public class SwapingActivity extends AppCompatActivity {
                         myDialog.show();
                     } else {
                         if (!checkClickSetImageMale) {
-                            binding.imageswap1.setImageBitmap(bitmap);
+                           binding.imageswap2.setImageBitmap(bitmap);
                         } else {
-                            binding.imageswap2.setImageBitmap(bitmap);
+                            binding.imageswap1.setImageBitmap(bitmap);
                         }
                     }
-
                 })
                 .addOnFailureListener(e -> {
+
                     Toast.makeText(SwapingActivity.this, "Fail to recognize face", Toast.LENGTH_SHORT).show();
                 });
+
         return resultDetech;
     }
     private MyDialog getDialog(){
@@ -140,31 +146,41 @@ public class SwapingActivity extends AppCompatActivity {
                 WindowManager.LayoutParams params = window.getAttributes();
                 params.gravity = Gravity.CENTER;
                 params.y= 300;//đặt
+                window.setAttributes(params);
             }
         }
         return myDialog;
     }
     private String processFaceDetectionResult(List<Face> faces) {
-        String result = "";
+        String result = "ok";
         List<Face> faceList = new ArrayList<>();
-        for(Face face: faces){
-            Rect bounds =face.getBoundingBox();
-            if(bounds.width()>=150|| bounds.height()>=150){
+
+        for (Face face : faces) {
+            Rect bounds = face.getBoundingBox();
+            if (bounds.width() >= 150 || bounds.height() >= 150) {
                 faceList.add(face);
             }
         }
-        if(faceList.size()==0){
+        if (faceList.size() == 0) {
             return NO_FACE_DETECTED;
         }
-        if(faceList.size()>1){
+        if (faceList.size() > 1) {
             return MORE_THAN_ONE_FACE;
         }
-        Face face = faceList.get(0);
-        float rotY = face.getHeadEulerAngleY();
-        float rotZ = face.getHeadEulerAngleZ();
+//
 
-        if(rotY>30 || rotZ>30|| rotZ< -30 || rotY< -30){
-            return  "the photo is tilted or because there are not enough eyes, nose, mouth";
+
+        Face face = faceList.get(0);
+//        Rect bounds = face.getBoundingBox();
+//        if (bounds.width() <= 30 || bounds.height() <= 30) {
+//            return "face size is too small ";
+//        }
+
+        float rotY = face.getHeadEulerAngleY();  // Head is rotated to the right rotY degrees
+        float rotZ = face.getHeadEulerAngleZ();  // Head is tilted sideways rotZ degrees
+        if (rotY > 30 || rotZ > 30 || rotZ < -30 || rotY < -30
+        ) {
+            return "the photo is tilted or because there are not enough eyes, nose, mouth";
         }
         FaceLandmark leftEye = face.getLandmark(FaceLandmark.LEFT_EYE);
         FaceLandmark rightEye = face.getLandmark(FaceLandmark.RIGHT_EYE);
@@ -172,11 +188,12 @@ public class SwapingActivity extends AppCompatActivity {
         FaceLandmark mouth = face.getLandmark(FaceLandmark.MOUTH_BOTTOM);
         FaceLandmark cheekRight = face.getLandmark(FaceLandmark.RIGHT_CHEEK);
         FaceLandmark cheekLeft = face.getLandmark(FaceLandmark.LEFT_CHEEK);
-        if(leftEye == null || rightEye == null || nose == null || mouth == null || cheekLeft == null || cheekRight == null){
+        if (leftEye == null || rightEye == null || nose == null || mouth == null || cheekLeft == null || cheekRight == null) {
             return "the picture is too blurry or because there are not enough eyes, nose, mouth";
         }
         return result;
     }
+
     private void initListener() {
         binding.btnswap1.setOnClickListener(v -> {
             checkClickSetImageMale =true;
@@ -193,28 +210,36 @@ public class SwapingActivity extends AppCompatActivity {
             @SuppressLint("StaticFieldLeak")
             @Override
             public void onClick(View v) {
-//                if (!isCheckSetImageFemale || !isCheckSetImageMale) {
-//                    myDialog = getDialog();
-//                    myDialog.setTitle("Can not Face recognition");
-//                    myDialog.setContent("Not enough faces have been identified");
-//                    myDialog.setContentButton("Ok");
-//                    myDialog.show();
-//                }else {
-//                    Toast.makeText(SwapingActivity.this, "Please waiting a time!", Toast.LENGTH_SHORT).show();
-//                    lockBtnSelectImage();
-//                    new AsyncTask<Void, Void, Void>() {
-//                        @Override
-//                        protected Void doInBackground(Void... voids) {
-//                            urlImageMale = Util.uploadImage2(imgBase64Male,SwapingActivity.this);
-//                            urlImageFemale = Util.uploadImage2(imgBase64Female,SwapingActivity.this);
-//                            Log.d("Huy", "Male Image URL: " + urlImageMale + "\nFemale Image URL: " + urlImageFemale);
-//                            return null;
-//                        }
-//                    };
-//                }
+                if (!isCheckSetImageFemale || !isCheckSetImageMale) {
+                    myDialog = getDialog();
+                    myDialog.setTitle("Can not Face recognition");
+                    myDialog.setContent("Not enough faces have been identified");
+                    myDialog.setContentButton("Ok");
+                    myDialog.show();
+                }else {
+                    Toast.makeText(SwapingActivity.this, "Please waiting a time!", Toast.LENGTH_SHORT).show();
+                    lockBtnSelectImage();
+                }
             }
         });
     }
+//    private void swapImage(){
+//        ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN3).getRetrofit().create(ApiServer.class);
+//        Call<Object> call = apiServer.postSwap(author, uriResponseMale, uriResponseFemale);
+//        call.enqueue(new Callback<Object>() {
+//            @Override
+//            public void onResponse(Call<Object> call, Response<Object> response) {
+//                 if(response.isSuccessful() && response != null){
+//                     Log.d("imageSwap", "onResponse: "+response.body());
+//                 }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Object> call, Throwable t) {
+//
+//            }
+//        });
+//    }
    private void getData(){
         String filePath =getRealPathFromURI(SwapingActivity.this,selectedImage);
         imageFile =new File(filePath);
@@ -230,8 +255,7 @@ public class SwapingActivity extends AppCompatActivity {
                public void onResponse(Call<String> call, Response<String> response) {
                   if(response.isSuccessful()){
                       Log.d("check_upload_image", "onResponse: "+ response.body());
-                        uriResponse = response.body();
-                        binding.imageswap1.setImageURI(selectedImage);
+                        uriResponseMale = response.body();
                   }
                }
 
@@ -247,8 +271,8 @@ public class SwapingActivity extends AppCompatActivity {
                public void onResponse(Call<String> call, Response<String> response) {
                    if(response.isSuccessful()){
                        Log.d("check_upload_image", "onResponse: "+ response.body());
-                       uriResponse = response.body();
-                       binding.imageswap2.setImageURI(selectedImage);
+                       uriResponseFemale = response.body();
+
                    }
                }
 
