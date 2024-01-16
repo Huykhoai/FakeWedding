@@ -15,7 +15,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,7 +34,6 @@ import android.widget.Toast;
 import com.example.fakewedding.R;
 import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.ActivitySwapingBinding;
-import com.example.fakewedding.databinding.FragmentStartSwapFaceBinding;
 import com.example.fakewedding.dialog.MyDialog;
 import com.example.fakewedding.server.ApiServer;
 import com.example.fakewedding.server.Server;
@@ -61,7 +63,8 @@ public class SwapingActivity extends AppCompatActivity {
     ActivitySwapingBinding binding;
     private static final String NO_FACE_DETECTED = "No faces detected";
     private static final String MORE_THAN_ONE_FACE = "More than one face is recognized";
-    private static final int REQUEST_CODE = 1;
+    private static final int REQUEST_CODE_SELECT = 1;
+    private static final int REQUEST_CODE_CAMERA = 2;
     private String resultDetech;
     private String imgBase64Male;
     private boolean checkClickSetImageMale;
@@ -87,7 +90,7 @@ public class SwapingActivity extends AppCompatActivity {
     }
     private void loadIdUser() {
         SharedPreferences sharedPreferences = getSharedPreferences("id_user",0);
-        String id_user_str = sharedPreferences.getString("id_user", "");
+        String id_user_str = sharedPreferences.getString("id_user_str", "");
         author = sharedPreferences.getString("token", "");
         Log.d("check_user_author", "loadIdUser: "+ author);
         Log.d("check_user_id", "loadIdUser: "+ id_user_str);
@@ -198,12 +201,14 @@ public class SwapingActivity extends AppCompatActivity {
         binding.btnswap1.setOnClickListener(v -> {
             checkClickSetImageMale =true;
             Intent intent = new Intent(SwapingActivity.this, UploadActivity.class);
+            intent.putExtra("male", true);
             launcher.launch(intent);
         });
 
         binding.btnswap2.setOnClickListener(v -> {
             checkClickSetImageMale= false;
             Intent intent = new Intent(SwapingActivity.this, UploadActivity.class);
+            intent.putExtra("male", false);
             launcher.launch(intent);
         });
         binding.btnGenerate.setOnClickListener(new View.OnClickListener() {
@@ -305,15 +310,14 @@ public class SwapingActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult o) {
-                    if (o.getResultCode() == REQUEST_CODE) {
+                    if (o.getResultCode() == REQUEST_CODE_SELECT) {
                         try {
                             Intent intent = o.getData();
                             if (intent != null) {
                                 Bundle bundle = intent.getExtras();
                                  selectedImage = Uri.parse(bundle.getString("selected_image"));
-                                 getData();
+                                Log.d("selectedImage", "ResultSelected: "+selectedImage);
                                  Bitmap bitmap;
-
                                 bitmap = MediaStore.Images.Media.getBitmap(SwapingActivity.this.getContentResolver(), selectedImage);
                                 Log.d("Huybimap", "onActivityResult: "+bitmap);
                                 if (checkClickSetImageMale) {
@@ -322,9 +326,11 @@ public class SwapingActivity extends AppCompatActivity {
                                     handler.postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+                                            Log.d("result", "detectionFace: "+resultDetech);
                                             if (resultDetech != null && resultDetech.equals("ok")) {
                                                 try {
                                                     imgBase64Male = Util.convertBitmapToBase64(bitmap);
+
                                                 } catch (IOException e) {
                                                     throw new RuntimeException(e);
                                                 }
@@ -336,6 +342,7 @@ public class SwapingActivity extends AppCompatActivity {
                                     }, 4000);
                                 } else {
                                     detectionFace(bitmap);
+
                                     Handler handler = new Handler();
                                     handler.postDelayed(new Runnable() {
                                         @Override
@@ -343,6 +350,8 @@ public class SwapingActivity extends AppCompatActivity {
                                             if (resultDetech != null && resultDetech.equals("ok")) {
                                                 try {
                                                     imgBase64Female = Util.convertBitmapToBase64(bitmap);
+                                                    Log.d("baseImage", "run: "+imgBase64Male);
+
                                                 } catch (IOException e) {
                                                     throw new RuntimeException(e);
                                                 }
@@ -358,9 +367,90 @@ public class SwapingActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
+                    }else if(o.getResultCode()==REQUEST_CODE_CAMERA){
+                        Intent intent = o.getData();
+                        if (intent != null) {
+                            Bundle bundle = intent.getExtras();
+                            selectedImage = Uri.parse(bundle.getString("camera_image"));
+                            Log.d("huy", "imageCamera: "+selectedImage);
+                            Bitmap bitmap =rotaImageHadlee(String.valueOf(selectedImage));
+                            if (checkClickSetImageMale) {
+                                detectionFace(bitmap);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Log.d("result", "detectionFace: "+resultDetech);
+                                        if (resultDetech != null && resultDetech.equals("ok")) {
+                                            try {
+                                                imgBase64Male = Util.convertBitmapToBase64(bitmap);
+
+                                            } catch (IOException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                            isCheckSetImageMale = true;
+                                        } else {
+                                            isCheckSetImageMale = false;
+                                        }
+                                    }
+                                }, 4000);
+                            } else {
+                                detectionFace(bitmap);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (resultDetech != null && resultDetech.equals("ok")) {
+                                            try {
+                                                imgBase64Female = Util.convertBitmapToBase64(bitmap);
+
+                                            } catch (IOException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                            isCheckSetImageFemale = true;
+                                        } else {
+                                            isCheckSetImageFemale = false;
+                                        }
+                                    }
+                                }, 4000);
+                            }
+                        }
                     }
                 }
             });
+    private Bitmap rotaImageHadlee(String path) {
+        Bitmap bitmap;
+        ExifInterface exifInterface;
+        try {
+            exifInterface = new ExifInterface(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+        // Tạo ma trận xoay để hiển thị ảnh đúng hướng
+        Matrix matrix = new Matrix();
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.postRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                matrix.postRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.postRotate(270);
+                break;
+            default:
+                // Không xoay ảnh
+                break;
+        }
+
+// Đọc ảnh từ đường dẫn và áp dụng ma trận xoay (nếu có)
+        bitmap = BitmapFactory.decodeFile(path);
+        Bitmap photo = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        return photo;
+    }
     private void lockBtnSelectImage() {
         binding.btnswap1.setEnabled(false);
         binding.btnswap2.setEnabled(false);

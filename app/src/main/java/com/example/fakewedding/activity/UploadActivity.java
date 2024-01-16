@@ -8,27 +8,43 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.fakewedding.R;
+import com.example.fakewedding.adapter.ImageUploadAdapter;
+import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.ActivityUploadBinding;
+import com.example.fakewedding.databinding.BottomNavUploadedImageBinding;
 import com.example.fakewedding.databinding.DialogBottomBinding;
-import com.example.fakewedding.databinding.FragmentUploadBinding;
 import com.example.fakewedding.dialog.MyDialog;
+import com.example.fakewedding.model.ImageUploadNam;
+import com.example.fakewedding.server.ApiServer;
+import com.example.fakewedding.server.Server;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UploadActivity extends AppCompatActivity {
      ActivityUploadBinding binding;
@@ -43,18 +59,79 @@ public class UploadActivity extends AppCompatActivity {
     private boolean checkClickSetImageMale;
     private String resultDetech;
     private MyDialog myDialog;
+    BottomNavUploadedImageBinding bindingBottom;
+    BottomSheetDialog bottomSheetDialog;
     int id_user;
-
+    boolean male;
+    List<ImageUploadNam> list;
     private File imageFile;
+    ImageUploadAdapter adapter;
+    private List<String> listUPload;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityUploadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        loadIdUser();
+        getStatusMale();
         backSwap();
+        getImageUploaded();
         binding.btnUpload.setOnClickListener(v -> {
             openDialog();
         });
+        binding.uploadSeemore.setOnClickListener(v -> {
+            openDialogBottom();
+        });
+
+    }
+    private void loadIdUser() {
+        SharedPreferences sharedPreferences = getSharedPreferences("id_user",0);
+        String id_user_str = sharedPreferences.getString("id_user_str", "");
+        Log.d("check_user_id", "loadIdUser: "+ id_user_str);
+        if (id_user_str == "") {
+            id_user = 0;
+        }else{
+            id_user = Integer.parseInt(id_user_str);
+        }
+    }
+    private void getStatusMale(){
+        Intent intent = getIntent();
+        male = intent.getBooleanExtra("male", false);
+        Log.d("male", "getStatusMale: "+male);
+    }
+    private void openDialogBottom() {
+         bottomSheetDialog = new BottomSheetDialog(UploadActivity.this);
+         bindingBottom = BottomNavUploadedImageBinding.inflate(LayoutInflater.from(UploadActivity.this));
+         bottomSheetDialog.setContentView(bindingBottom.getRoot());
+        ViewGroup.LayoutParams params =bindingBottom.getRoot().getLayoutParams();
+        params.height = (int) (getResources().getDisplayMetrics().heightPixels *0.6);
+        bindingBottom.getRoot().setLayoutParams(params);
+
+        adapter = new ImageUploadAdapter(UploadActivity.this, listUPload);
+        bindingBottom.recycleUploadedImage.setLayoutManager(new GridLayoutManager(UploadActivity.this,2));
+        bindingBottom.recycleUploadedImage.setAdapter(adapter);
+        bottomSheetDialog.show();
+    }
+    private void getImageUploaded(){
+        ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
+            Call<ImageUploadNam> call = apiServer.getImageNam(0, male?"nam": "nu");
+            call.enqueue(new Callback<ImageUploadNam>() {
+                @Override
+                public void onResponse(Call<ImageUploadNam> call, Response<ImageUploadNam> response) {
+                    listUPload = new ArrayList<>();
+                    if(response.isSuccessful()){
+                        Log.d("links uploaded", "onResponse: "+response.body().getLinks_nam());
+                      listUPload.addAll(response.body().getLinks_nam());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ImageUploadNam> call, Throwable t) {
+
+                }
+            });
+
+
     }
     private void openDialog(){
         bottomBinding = DialogBottomBinding.inflate(LayoutInflater.from(UploadActivity.this));
@@ -92,7 +169,7 @@ public class UploadActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(UploadActivity.this, Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED){
             startCamera();
         }else {
-            ActivityCompat.requestPermissions(UploadActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSIONS);
+            ActivityCompat.requestPermissions(UploadActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_PERMISSIONS);
 
         }
     }
@@ -115,12 +192,13 @@ public class UploadActivity extends AppCompatActivity {
             Uri photoURI = FileProvider.getUriForFile(UploadActivity.this,
                     "com.example.fakewedding.fileprovider",
                     imageFile);
+            Log.d("CameraUri", "startCamera: "+photoURI);
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
             startActivityForResult(cameraIntent, CAMERA_REQUEST);
         }
     }
 
-    @Override
+    @SuppressLint("Static0FieldLeak")
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==IMAGE_PICKER_SELECT && resultCode== RESULT_OK && data!= null){
@@ -132,15 +210,24 @@ public class UploadActivity extends AppCompatActivity {
             setResult(1,intent);
             finish();
         }
+        if(requestCode==CAMERA_REQUEST && resultCode ==RESULT_OK){
+             String imagefile = imageFile.getAbsolutePath();
+            Log.d("Imagefile", "onActivityResult: "+imagefile);
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putString("camera_image", imagefile);
+            intent.putExtras(bundle);
+            setResult(2,intent);
+            finish();
+        }
+
     }
 
-    @Subscribe
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 try {
                     startCamera();
                 } catch (FileNotFoundException e) {
@@ -151,7 +238,11 @@ public class UploadActivity extends AppCompatActivity {
             }
         }
         if (requestCode == REQUEST_CODE_PERMISSIONS_STORAGE) {
-            startStorage();
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startStorage();
+            } else {
+                Toast.makeText(UploadActivity.this, "Storage permission denied", Toast.LENGTH_SHORT).show();
+            }
         }
     }
     private void closeDialog() {

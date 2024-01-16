@@ -16,13 +16,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
-    public String linkImage;
-    public Bitmap maleImage;
-    public Bitmap femaleImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.builder().installDefaultEventBus();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }

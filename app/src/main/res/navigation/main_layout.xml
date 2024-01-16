@@ -15,6 +15,10 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left">
         </action>
+        <action android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@+id/profileFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/swapingFragment"
@@ -38,7 +42,42 @@
             <argument android:name="selected_image"
                 app:argType="string"/>
         </action>
-
-
+    </fragment>
+    <fragment android:id="@+id/profileFragment"
+        android:name="com.example.fakewedding.fragment.ProfileFragment"
+        android:label="Profile Fragment"
+        tools:layout="@layout/fragment_profile">
+        <action android:id="@+id/actiont_profileFragment_to_homeFragmen"
+            app:destination="@+id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"/>
+        <action android:id="@+id/actiont_profileFragment_to_AccountFragment"
+            app:destination="@+id/accountFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment android:id="@+id/accountFragment"
+        android:name="com.example.fakewedding.fragment.EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile"
+        android:label="Account Fragment">
+        <action android:id="@+id/action_AccountFragment_to_ChangePass"
+            app:destination="@id/changePassFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action android:id="@+id/action_AccountFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/changePassFragment"
+        android:name="com.example.fakewedding.fragment.ChangePassFragment"
+        android:label="Change pass"
+        tools:layout="@layout/fragment_change_pass"
+        >
+        <action android:id="@+id/action_changeFragment_to_AccountFragment"
+            app:destination="@+id/accountFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"/>
     </fragment>
 </navigation>

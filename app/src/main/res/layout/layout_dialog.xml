@@ -12,9 +12,11 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/define_dimen_6"
         android:textStyle="bold"
+        android:text="title"
+        android:textColor="@color/white"
         android:textSize="@dimen/define_dimen_18"
         android:gravity="center"
-        android:background="@color/transparent"
+        android:background="#16B6D4"
         tools:ignore="SpUsage" />
     <LinearLayout
         android:layout_width="match_parent"

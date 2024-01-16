@@ -31,18 +31,18 @@
             android:src="@drawable/ic_menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/home_menu"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,8 +71,7 @@
                     android:paddingRight="30dp"
                     android:text="Upload your photos to swap the face with AI. Experience powerful realistic face swapping effects. Create gorgeous wedding photos!"
                     android:textSize="16dp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/btnstart_swaping"
@@ -104,21 +103,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
+
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:gravity="center"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="How to Swap a Face Online"
-                    android:textStyle="bold"
                     android:textSize="30dp"
-                    android:layout_gravity="center"/>
+                    android:textStyle="bold" />
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/home2"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/home2" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -151,427 +153,464 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="310dp"
                         android:layout_height="wrap_content"
-                        android:text="Simply click 'Upload an Image' and select 2 photos you want to use as the source image. Ensure only one face in the photo is of good quality."
-                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
-                        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
-                        android:textSize="18dp"/>
+                        android:text="Simply click 'Upload an Image' and select 2 photos you want to use as the source image. Ensure only one face in the photo is of good quality."
+                        android:textSize="18dp"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/home2_1"
+                    android:layout_gravity="center"
                     android:layout_marginTop="40dp"
                     android:layout_marginBottom="40dp"
-                    android:layout_gravity="center"/>
+                    android:src="@drawable/home2_1" />
             </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#F2FDFF">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your Ultimate AI Maker to Generate Wedding Photos for Free"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginTop="40dp"/>
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/home3_1"/>
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/home3_2"/>
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/home3_3"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:background="#D9D9D9">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jump Start Your Creation with 50+ Wedding Photos Template"
-                android:textStyle="bold"
-                android:textSize="30dp"
-                android:gravity="center"
-                android:layout_marginTop="20dp"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp">
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/home4_1"
+                android:background="#F2FDFF"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/home4_1"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center"
+                    android:text="Your Ultimate AI Maker to Generate Wedding Photos for Free"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/home3_1" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/home3_2" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/home3_3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#D9D9D9"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_marginStart="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:gravity="center"
+                    android:text="Jump Start Your Creation with 50+ Wedding Photos Template"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/appCompatImageView2"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/home4_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/home4_1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/home4_2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.975"
+                        app:layout_constraintStart_toEndOf="@+id/home4_1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/home4_3"
+                        app:layout_constraintEnd_toStartOf="@+id/appCompatImageView3"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/home4_1" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/home4_4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_btn"
+                        android:src="@drawable/ic_left"
+                        app:layout_constraintBottom_toTopOf="@+id/appCompatImageView4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.016"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/home4_1"
+                        app:layout_constraintVertical_bias="0.714" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_btn"
+                        android:src="@drawable/ic_right"
+                        app:layout_constraintBottom_toTopOf="@+id/appCompatImageView4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.98"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/home4_1"
+                        app:layout_constraintVertical_bias="0.714" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#D9D9D9"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Say Goodbye to Photographer, Studios, Expense and More"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/bg_home5"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textviewhome5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:text="Traditional Wedding Photo"
+                        android:textSize="26dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/home5_1"
+                        app:layout_constraintTop_toBottomOf="@id/textviewhome5" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:src="@drawable/icon_x"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.102"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/appCompatImageView5" />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="High cost of cameras, studios, sound stage, etc."
+                        android:textSize="20dp"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView6"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView5" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:src="@drawable/icon_x"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.102"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/appCompatImageView6" />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Long time in preparing, shooting, and editing."
+                        android:textSize="20dp"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView7"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView6" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:src="@drawable/icon_x"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.102"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/appCompatImageView7" />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Complex manual processes through all stages."
+                        android:textSize="20dp"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView8"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView7" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:src="@drawable/icon_x"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.102"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/appCompatImageView8" />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Hard to update the photos after done."
+                        android:textSize="20dp"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView8"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView8" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/bg_home5"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textviewhome10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:text="AI Wedding Photo "
+                        android:textSize="26dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/home6"
+                        app:layout_constraintTop_toBottomOf="@id/textviewhome10" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:src="@drawable/icon_v"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.102"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/appCompatImageView10" />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="High cost of cameras, studios, sound stage, etc."
+                        android:textSize="20dp"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView11"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView10" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:src="@drawable/icon_v"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.102"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/appCompatImageView11" />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Long time in preparing, shooting, and editing."
+                        android:textSize="20dp"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView12"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView11" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:src="@drawable/icon_v"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.102"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/appCompatImageView12" />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Complex manual processes through all stages."
+                        android:textSize="20dp"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView13"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView12" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:src="@drawable/icon_v"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.102"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/appCompatImageView13" />
+
+                    <TextView
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Hard to update the photos after done."
+                        android:textSize="20dp"
+                        app:layout_constraintStart_toEndOf="@+id/appCompatImageView13"
+                        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView13" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/home4_2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.975"
-                    app:layout_constraintStart_toEndOf="@+id/home4_1"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:gravity="center"
+                    android:text="Trusted by Millions of Creators and Companies Worldwide"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/appCompatImageView4"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/bg_home5"
+                    android:orientation="vertical">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPaper_home6"
+                        android:layout_width="match_parent"
+                        android:layout_height="410dp"
+                        android:layout_marginTop="20dp" />
+
+                    <me.relex.circleindicator.CircleIndicator
+                        android:id="@+id/circleIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        app:ci_drawable="@drawable/circle" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:gravity="center"
+                    android:text="Make Wedding Photo Easy for All!"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/home4_3"
-                    app:layout_constraintEnd_toStartOf="@+id/appCompatImageView3"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/home4_1" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/appCompatImageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="20dp"
-                    android:src="@drawable/home4_4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2" />
+                    android:gravity="center"
+                    android:text="Use the power of AI to create professional wedding photos faster, with less effort and cost. Create your dream wedding . Get started with Wedding AI!"
+                    android:textSize="18dp" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="400dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_btn"
-                    android:src="@drawable/ic_left"
-                    app:layout_constraintBottom_toTopOf="@+id/appCompatImageView4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.016"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/home4_1"
-                    app:layout_constraintVertical_bias="0.714" />
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_btn"
-                    android:src="@drawable/ic_right"
-                    app:layout_constraintBottom_toTopOf="@+id/appCompatImageView4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.98"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/home4_1"
-                    app:layout_constraintVertical_bias="0.714" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="vertical"
-             android:background="#D9D9D9"
-             >
-             <androidx.appcompat.widget.AppCompatTextView
-                 android:layout_width="400dp"
-                 android:layout_height="wrap_content"
-                 android:text="Say Goodbye to Photographer, Studios, Expense and More"
-                 android:textSize="30dp"
-                 android:textStyle="bold"
-                 android:gravity="center"/>
-             <androidx.constraintlayout.widget.ConstraintLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="vertical"
-                 android:background="@drawable/bg_home5"
-                 android:layout_margin="15dp">
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/btn_home"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
-                 <androidx.appcompat.widget.AppCompatTextView
-                     android:id="@+id/textviewhome5"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="center"
-                     android:layout_marginTop="20dp"
-                     android:text="Traditional Wedding Photo"
-                     android:textSize="26dp"
-                     android:textStyle="bold"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toTopOf="parent" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Create Free Wedding Photo"
+                        android:textColor="@color/white"
+                        android:textSize="27dp"
+                        android:textStyle="bold" />
 
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/appCompatImageView5"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="20dp"
-                     android:src="@drawable/home5_1"
-                     app:layout_constraintTop_toBottomOf="@id/textviewhome5" />
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/appCompatImageView6"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="32dp"
-                     android:src="@drawable/icon_x"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintHorizontal_bias="0.102"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toBottomOf="@id/appCompatImageView5" />
-                 <TextView
-                     android:layout_width="280dp"
-                     android:layout_height="wrap_content"
-                     android:text="High cost of cameras, studios, sound stage, etc."
-                     android:textSize="20dp"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginTop="20dp"
-                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView6"
-                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView5" />
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/appCompatImageView7"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="32dp"
-                     android:src="@drawable/icon_x"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintHorizontal_bias="0.102"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toBottomOf="@id/appCompatImageView6" />
-                 <TextView
-                     android:layout_width="280dp"
-                     android:layout_height="wrap_content"
-                     android:text="Long time in preparing, shooting, and editing."
-                     android:textSize="20dp"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginTop="20dp"
-                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView7"
-                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView6" />
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/appCompatImageView8"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="32dp"
-                     android:src="@drawable/icon_x"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintHorizontal_bias="0.102"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toBottomOf="@id/appCompatImageView7" />
-                 <TextView
-                     android:layout_width="280dp"
-                     android:layout_height="wrap_content"
-                     android:text="Complex manual processes through all stages."
-                     android:textSize="20dp"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginTop="20dp"
-                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView8"
-                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView7" />
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/appCompatImageView9"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="32dp"
-                     android:src="@drawable/icon_x"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintHorizontal_bias="0.102"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toBottomOf="@id/appCompatImageView8" />
-                 <TextView
-                     android:layout_width="280dp"
-                     android:layout_height="wrap_content"
-                     android:text="Hard to update the photos after done."
-                     android:textSize="20dp"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginTop="20dp"
-                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView8"
-                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView8" />
-             </androidx.constraintlayout.widget.ConstraintLayout>
-             <androidx.constraintlayout.widget.ConstraintLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="vertical"
-                 android:background="@drawable/bg_home5"
-                 android:layout_margin="15dp">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/back_right" />
+                </LinearLayout>
+            </LinearLayout>
 
-                 <androidx.appcompat.widget.AppCompatTextView
-                     android:id="@+id/textviewhome10"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="center"
-                     android:layout_marginTop="20dp"
-                     android:text="AI Wedding Photo "
-                     android:textSize="26dp"
-                     android:textStyle="bold"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toTopOf="parent" />
-
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/appCompatImageView10"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="20dp"
-                     android:src="@drawable/home6"
-                     app:layout_constraintTop_toBottomOf="@id/textviewhome10" />
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/appCompatImageView11"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="32dp"
-                     android:src="@drawable/icon_v"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintHorizontal_bias="0.102"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toBottomOf="@id/appCompatImageView10" />
-                 <TextView
-                     android:layout_width="280dp"
-                     android:layout_height="wrap_content"
-                     android:text="High cost of cameras, studios, sound stage, etc."
-                     android:textSize="20dp"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginTop="20dp"
-                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView11"
-                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView10" />
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/appCompatImageView12"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="32dp"
-                     android:src="@drawable/icon_v"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintHorizontal_bias="0.102"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toBottomOf="@id/appCompatImageView11" />
-                 <TextView
-                     android:layout_width="280dp"
-                     android:layout_height="wrap_content"
-                     android:text="Long time in preparing, shooting, and editing."
-                     android:textSize="20dp"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginTop="20dp"
-                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView12"
-                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView11" />
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/appCompatImageView13"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="32dp"
-                     android:src="@drawable/icon_v"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintHorizontal_bias="0.102"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toBottomOf="@id/appCompatImageView12" />
-                 <TextView
-                     android:layout_width="280dp"
-                     android:layout_height="wrap_content"
-                     android:text="Complex manual processes through all stages."
-                     android:textSize="20dp"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginTop="20dp"
-                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView13"
-                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView12" />
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:id="@+id/appCompatImageView14"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="32dp"
-                     android:src="@drawable/icon_v"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintHorizontal_bias="0.102"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toBottomOf="@id/appCompatImageView13" />
-                 <TextView
-                     android:layout_width="280dp"
-                     android:layout_height="wrap_content"
-                     android:text="Hard to update the photos after done."
-                     android:textSize="20dp"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginTop="20dp"
-                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView13"
-                     app:layout_constraintTop_toBottomOf="@+id/appCompatImageView13" />
-             </androidx.constraintlayout.widget.ConstraintLayout>
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:textStyle="bold"
-                 android:textSize="30dp"
-                 android:text="Trusted by Millions of Creators and Companies Worldwide"
-                 android:gravity="center"
-                 android:layout_marginTop="20dp"/>
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="vertical"
-                 android:background="@drawable/bg_home5"
-                 android:layout_margin="15dp">
-                 <androidx.viewpager.widget.ViewPager
-                     android:layout_marginTop="20dp"
-                     android:id="@+id/viewPaper_home6"
-                     android:layout_width="match_parent"
-                     android:layout_height="410dp" />
-                 <me.relex.circleindicator.CircleIndicator
-                     android:id="@+id/circleIndicator"
-                     android:layout_width="wrap_content"
-                     android:layout_height="40dp"
-                     android:layout_gravity="center"
-                     app:ci_drawable="@drawable/circle" />
-             </LinearLayout>
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="Make Wedding Photo Easy for All!"
-                 android:textSize="30dp"
-                 android:textStyle="bold"
-                 android:gravity="center"
-                 android:layout_margin="20dp"/>
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="Use the power of AI to create professional wedding photos faster, with less effort and cost. Create your dream wedding . Get started with Wedding AI!"
-                 android:layout_marginStart="20dp"
-                 android:layout_marginEnd="20dp"
-                 android:textSize="18dp"
-                 android:gravity="center"/>
-             <LinearLayout
-                 android:layout_width="400dp"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="30dp"
-                 android:background="@drawable/btn_home"
-                 android:gravity="center"
-                 android:orientation="horizontal"
-                 android:padding="10dp"
-                 android:layout_gravity="center"
-                 android:layout_marginBottom="40dp">
-
-                 <androidx.appcompat.widget.AppCompatTextView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:text="Create Free Wedding Photo"
-                     android:textColor="@color/white"
-                     android:textSize="27dp"
-                     android:textStyle="bold" />
-                 <androidx.appcompat.widget.AppCompatImageView
-                     android:layout_width="30dp"
-                     android:layout_height="30dp"
-                     android:layout_marginLeft="10dp"
-                     android:src="@drawable/back_right"
-                     />
-             </LinearLayout>
-         </LinearLayout>
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/footer_home"/>
+                android:src="@drawable/footer_home" />
         </LinearLayout>
     </ScrollView>
 

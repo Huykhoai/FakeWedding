@@ -115,6 +115,7 @@ public class LoginFragment extends Fragment {
                     SharedPreferences spf = getActivity().getSharedPreferences("id_user",0);
                     SharedPreferences.Editor edit = spf.edit();
                     edit.putString("id_user_str", user_id);
+                    edit.putString("password",binding.editPassLogin.getText().toString());
                     edit.putString("token", token);
                     edit.apply();
                 }

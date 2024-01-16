@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         ViewpaperHome6();
         navSwapFragment();
+        navProfileFragment();
         return binding.getRoot();
     }
     private void ViewpaperHome6(){
@@ -54,10 +55,13 @@ public class HomeFragment extends Fragment {
     }
    private void navSwapFragment(){
         binding.btnstartSwaping.setOnClickListener(v -> {
-//            NavController nav = NavHostFragment.findNavController(this);
-//            nav.navigate(R.id.action_homeFragment_to_SwapingFragment);
             startActivity(new Intent(getActivity(), SwapingActivity.class));
         });
-
+    }
+    private void navProfileFragment(){
+        binding.homeMenu.setOnClickListener(v -> {
+            NavController nav = NavHostFragment.findNavController(this);
+            nav.navigate(R.id.action_homeFragment_to_profileFragment);
+        });
     }
 }

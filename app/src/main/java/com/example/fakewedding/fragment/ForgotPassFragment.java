@@ -45,7 +45,7 @@ public class ForgotPassFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentForgotPassBinding.inflate(inflater, container, false);
         ResetPass();
-        backLogin();
+        binding.btnBackLogin.setOnClickListener(v -> backLogin());
         return binding.getRoot();
     }
 
@@ -69,6 +69,7 @@ public class ForgotPassFragment extends Fragment {
                         myDialog.setContent(result.getMessage());
                         myDialog.setContentButton("ok");
                         myDialog.show();
+
                     }else {
                         myDialog = MyDialog.getInstance();
                         myDialog.setContent("request failed");

@@ -1,5 +1,7 @@
 package com.example.fakewedding.server;
 
+import com.example.fakewedding.model.DetailUser;
+import com.example.fakewedding.model.ImageUploadNam;
 import com.example.fakewedding.model.Login;
 import com.example.fakewedding.model.Message;
 
@@ -32,9 +34,9 @@ public interface ApiServer {
             @Field("ip_register") String registerIp
     );
     @Multipart
-    @POST(Server.URI_UPLOAD_IMAGE+ "{id_user}")
+    @POST(Server.URI_UPLOAD_IMAGE+ "{page}")
     Call<String> uploadImage(
-            @Path("id_user") int id_user,
+            @Path("page") int id_user,
             @Query("type") String fileType,
             @Part MultipartBody.Part src_img
             );
@@ -43,5 +45,23 @@ public interface ApiServer {
     Call<Message> sendData(
             @Field("email") String email
     );
+    @GET(Server.GET_PROFILE+"{page}")
+    Call<DetailUser> getUSer(
+      @Path("page") long id
+    );
+    @FormUrlEncoded
+    @POST(Server.CHANGE_PASSWORD+"{page}")
+    Call<Object> changepass(
+            @Path("page") long id,
+            @Header("Authorization") String authorization,
+            @Field("old_password") String oldpassword,
+            @Field("new_password") String newpassword
+    );
+    @GET(Server.GET_UPLOAD_IMG+"{page}")
+    Call<ImageUploadNam> getImageNam(
+            @Path("page") long id,
+            @Query("type") String type
+    );
+
 }
 
