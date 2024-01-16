@@ -15,34 +15,17 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left">
         </action>
+        <action android:id="@+id/action_homeFragment_to_CategoryFragment"
+            app:destination="@+id/categoryFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left">
+        </action>
         <action android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@+id/profileFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"/>
     </fragment>
-    <fragment
-        android:id="@+id/swapingFragment"
-        android:name="com.example.fakewedding.fragment.StartSwapFaceFragment"
-        android:label="SwapingFace"
-        tools:layout="@layout/fragment_start_swap_face">
-        <action android:id="@+id/action_swapFragment_to_uploadFragment"
-            app:destination="@+id/uploadFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_left"/>
-    </fragment>
-    <fragment
-        android:id="@+id/uploadFragment"
-        android:name="com.example.fakewedding.fragment.UploadFragment"
-        android:label="UploadFragment"
-        tools:layout="@layout/fragment_upload">
-        <action android:id="@+id/action_uploadFragment_to_swapFragment"
-            app:destination="@+id/swapingFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_right">
-            <argument android:name="selected_image"
-                app:argType="string"/>
-        </action>
-    </fragment>
+
     <fragment android:id="@+id/profileFragment"
         android:name="com.example.fakewedding.fragment.ProfileFragment"
         android:label="Profile Fragment"
@@ -79,5 +62,12 @@
             app:destination="@+id/accountFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.fakewedding.fragment.CategoryFragment"
+        tools:layout="@layout/fragment_category"
+        android:label="Category Fragment">
+
     </fragment>
 </navigation>

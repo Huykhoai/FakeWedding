@@ -1,7 +1,9 @@
 package com.example.fakewedding.server;
 
+import com.example.fakewedding.model.Category;
 import com.example.fakewedding.model.DetailUser;
 import com.example.fakewedding.model.ImageUploadNam;
+import com.example.fakewedding.model.ListCategory;
 import com.example.fakewedding.model.Login;
 import com.example.fakewedding.model.Message;
 
@@ -62,6 +64,7 @@ public interface ApiServer {
             @Path("page") long id,
             @Query("type") String type
     );
-
+    @GET(Server.DOMAIN4+"get/categories_wedding")
+    Call<ListCategory> getCategory();
 }
 

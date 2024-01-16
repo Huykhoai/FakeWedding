@@ -4,7 +4,7 @@ public interface Server {
     String URI = "https://metatechvn.store/";
     String DOMAIN2 = "https://metatechvn.store/";
     String DOMAIN3 ="https://sakaivn.online/";
-
+    String DOMAIN4 = "https://api.santacall.online/";
     String URI_LOG_IN = "login";
     String URI_SIGN_UP = "register/user";
 

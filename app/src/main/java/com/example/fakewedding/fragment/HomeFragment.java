@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
     }
    private void navSwapFragment(){
         binding.btnstartSwaping.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), SwapingActivity.class));
+           NavHostFragment.findNavController(this).navigate(R.id.action_homeFragment_to_CategoryFragment);
         });
     }
     private void navProfileFragment(){
