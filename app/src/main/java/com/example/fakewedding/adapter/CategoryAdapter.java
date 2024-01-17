@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +24,11 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewholder> {
     Context context;
     List<Category> arrayList;
+    RecycleInterface anInterface;
 
+    public void setOnclickItem(RecycleInterface recycleInterface){
+        this.anInterface = recycleInterface;
+    }
     public CategoryAdapter(Context context, List<Category> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
@@ -44,7 +49,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
         Log.d("getname", "onBindViewHolder: "+category.getName_cate());
         Picasso.get().load(category.getImage_sample()).into(holder.imageView);
         holder.btn_start.setOnClickListener(v -> {
-
+             if(anInterface!= null){
+                 anInterface.onCickItem(position);
+             }else {
+                 Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
+             }
         });
     }
 
@@ -58,12 +67,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
     public class Viewholder extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView txtTitle;
-        Button btn_start;
+        TextView btn_start;
         public Viewholder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image_category);
             txtTitle = itemView.findViewById(R.id.title_category);
             btn_start = itemView.findViewById(R.id.btn_category);
         }
+    }
+    public interface RecycleInterface{
+        void onCickItem(int position);
     }
 }

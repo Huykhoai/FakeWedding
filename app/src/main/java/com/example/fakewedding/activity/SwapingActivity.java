@@ -245,8 +245,8 @@ public class SwapingActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-   private void getData(){
-        String filePath =getRealPathFromURI(SwapingActivity.this,selectedImage);
+   private void getData(Uri imageselected){
+        String filePath =getRealPathFromURI(SwapingActivity.this,imageselected);
         imageFile =new File(filePath);
        Log.d("check_upload_image", "getData_0: "+ imageFile);
        RequestBody requestBody =RequestBody.create(MediaType.parse("multipart/form-data"),imageFile);
@@ -320,8 +320,9 @@ public class SwapingActivity extends AppCompatActivity {
                                  Bitmap bitmap;
                                 bitmap = MediaStore.Images.Media.getBitmap(SwapingActivity.this.getContentResolver(), selectedImage);
                                 Log.d("Huybimap", "onActivityResult: "+bitmap);
-                                if (checkClickSetImageMale) {
+                                if (checkClickSetImageMale){
                                     detectionFace(bitmap);
+
                                     Handler handler = new Handler();
                                     handler.postDelayed(new Runnable() {
                                         @Override
@@ -330,7 +331,7 @@ public class SwapingActivity extends AppCompatActivity {
                                             if (resultDetech != null && resultDetech.equals("ok")) {
                                                 try {
                                                     imgBase64Male = Util.convertBitmapToBase64(bitmap);
-
+                                                    getData(selectedImage);
                                                 } catch (IOException e) {
                                                     throw new RuntimeException(e);
                                                 }
@@ -342,7 +343,6 @@ public class SwapingActivity extends AppCompatActivity {
                                     }, 4000);
                                 } else {
                                     detectionFace(bitmap);
-
                                     Handler handler = new Handler();
                                     handler.postDelayed(new Runnable() {
                                         @Override
@@ -351,7 +351,7 @@ public class SwapingActivity extends AppCompatActivity {
                                                 try {
                                                     imgBase64Female = Util.convertBitmapToBase64(bitmap);
                                                     Log.d("baseImage", "run: "+imgBase64Male);
-
+                                                    getData(selectedImage);
                                                 } catch (IOException e) {
                                                     throw new RuntimeException(e);
                                                 }
@@ -384,7 +384,7 @@ public class SwapingActivity extends AppCompatActivity {
                                         if (resultDetech != null && resultDetech.equals("ok")) {
                                             try {
                                                 imgBase64Male = Util.convertBitmapToBase64(bitmap);
-
+                                                getData(selectedImage);
                                             } catch (IOException e) {
                                                 throw new RuntimeException(e);
                                             }
@@ -403,7 +403,7 @@ public class SwapingActivity extends AppCompatActivity {
                                         if (resultDetech != null && resultDetech.equals("ok")) {
                                             try {
                                                 imgBase64Female = Util.convertBitmapToBase64(bitmap);
-
+                                                getData(selectedImage);
                                             } catch (IOException e) {
                                                 throw new RuntimeException(e);
                                             }
@@ -415,6 +415,65 @@ public class SwapingActivity extends AppCompatActivity {
                                 }, 4000);
                             }
                         }
+                    }else if(o.getResultCode()==3){
+
+                        try {
+                            Intent intent = o.getData();
+                            if (intent != null) {
+                                Bundle bundle = intent.getExtras();
+                                selectedImage = Uri.parse(bundle.getString("image_uploaded"));
+                                Log.d("selectedImage", "ResultSelected: "+selectedImage);
+                                Bitmap bitmap;
+                                bitmap = MediaStore.Images.Media.getBitmap(SwapingActivity.this.getContentResolver(), selectedImage);
+                                Log.d("Huybimap", "onActivityResult: "+bitmap);
+                                if (checkClickSetImageMale){
+                                    detectionFace(bitmap);
+
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Log.d("result", "detectionFace: "+resultDetech);
+                                            if (resultDetech != null && resultDetech.equals("ok")) {
+                                                try {
+                                                    imgBase64Male = Util.convertBitmapToBase64(bitmap);
+                                                    getData(selectedImage);
+                                                } catch (IOException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                                isCheckSetImageMale = true;
+                                            } else {
+                                                isCheckSetImageMale = false;
+                                            }
+                                        }
+                                    }, 4000);
+                                } else {
+                                    detectionFace(bitmap);
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (resultDetech != null && resultDetech.equals("ok")) {
+                                                try {
+                                                    imgBase64Female = Util.convertBitmapToBase64(bitmap);
+                                                    Log.d("baseImage", "run: "+imgBase64Male);
+                                                    getData(selectedImage);
+                                                } catch (IOException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                                isCheckSetImageFemale = true;
+                                            } else {
+                                                isCheckSetImageFemale = false;
+                                            }
+                                        }
+                                    }, 4000);
+                                }
+
+                            }
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
                 }
             });

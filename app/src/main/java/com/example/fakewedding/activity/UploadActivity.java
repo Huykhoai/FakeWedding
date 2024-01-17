@@ -110,18 +110,37 @@ public class UploadActivity extends AppCompatActivity {
         adapter = new ImageUploadAdapter(UploadActivity.this, listUPload);
         bindingBottom.recycleUploadedImage.setLayoutManager(new GridLayoutManager(UploadActivity.this,2));
         bindingBottom.recycleUploadedImage.setAdapter(adapter);
+
+        adapter.setOnclickImageUploaded(new ImageUploadAdapter.OnclickImageUploaded() {
+            @Override
+            public void setOnclick(String image) {
+                Log.d("imageadapter", "setOnclick: "+image);
+                Intent inten= new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString("image_uploaded", image);
+
+                inten.putExtras(bundle);
+                setResult(3,inten);
+                finish();
+            }
+        });
         bottomSheetDialog.show();
     }
     private void getImageUploaded(){
         ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
-            Call<ImageUploadNam> call = apiServer.getImageNam(0, male?"nam": "nu");
+            Call<ImageUploadNam> call = apiServer.getImageNam(id_user, male?"nam": "nu");
             call.enqueue(new Callback<ImageUploadNam>() {
                 @Override
                 public void onResponse(Call<ImageUploadNam> call, Response<ImageUploadNam> response) {
                     listUPload = new ArrayList<>();
                     if(response.isSuccessful()){
-                        Log.d("links uploaded", "onResponse: "+response.body().getLinks_nam());
-                      listUPload.addAll(response.body().getLinks_nam());
+                        if(male){
+                            Log.d("links uploaded", "onResponse: "+response.body().getLinks_nam());
+                            listUPload.addAll(response.body().getLinks_nam());
+                        }else {
+                            listUPload.addAll(response.body().getLinks_nu());
+                        }
+
                     }
                 }
 
@@ -130,8 +149,6 @@ public class UploadActivity extends AppCompatActivity {
 
                 }
             });
-
-
     }
     private void openDialog(){
         bottomBinding = DialogBottomBinding.inflate(LayoutInflater.from(UploadActivity.this));

@@ -13,4 +13,5 @@ public interface Server {
     String GET_PROFILE = "profile/";
     String CHANGE_PASSWORD = "changepassword/";
     String GET_UPLOAD_IMG = "images/";
+    String GET_TEMPLE = "/get/list_image_wedding/1";
 }

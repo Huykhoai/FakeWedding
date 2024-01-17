@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- Ảnh hiển thị trong mỗi mục -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="5dp">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:id="@+id/btnCreateNow"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_swap"
+            android:text="Create Now"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/white"
+             />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnDetail"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="Detail"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_swap"
+           />
+    </LinearLayout>
+
+
+
+</LinearLayout>

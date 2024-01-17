@@ -3,6 +3,8 @@ package com.example.fakewedding.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.fakewedding.R;
 import com.example.fakewedding.adapter.CategoryAdapter;
 import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.FragmentCategoryBinding;
@@ -28,7 +31,7 @@ import retrofit2.Response;
 
 public class CategoryFragment extends Fragment {
     FragmentCategoryBinding binding;
-    List<ListCategory> arrayList;
+    List<Category> categories;
     CategoryAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,11 +50,12 @@ public class CategoryFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     ListCategory categoryResponse = response.body();
                     if (categoryResponse != null && categoryResponse.getCategories() != null) {
-                        List<Category> categories = categoryResponse.getCategories();
+                         categories = categoryResponse.getCategories();
                         Log.d("listcategory", "onResponse: "+categories.get(0).getId_cate());
                       adapter = new CategoryAdapter(getActivity(), categories);
                       binding.recycleCategory.setLayoutManager(new GridLayoutManager(getActivity(),2));
                       binding.recycleCategory.setAdapter(adapter);
+                      onClickStart();
                     }
                 } else {
                     // Xử lý khi có lỗi
@@ -62,6 +66,17 @@ public class CategoryFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ListCategory> call, Throwable t) {
+
+            }
+        });
+    }
+    private void onClickStart(){
+        adapter.setOnclickItem(new CategoryAdapter.RecycleInterface() {
+            @Override
+            public void onCickItem(int position) {
+                Category category = categories.get(position);
+                CategoryFragmentDirections.ActionCategoryFragmentToTempleFragment action = CategoryFragmentDirections.actionCategoryFragmentToTempleFragment(String.valueOf(category.getId_cate()));
+                NavHostFragment.findNavController(CategoryFragment.this).navigate(action);
 
             }
         });

@@ -68,6 +68,29 @@
         android:name="com.example.fakewedding.fragment.CategoryFragment"
         tools:layout="@layout/fragment_category"
         android:label="Category Fragment">
+      <action android:id="@+id/action_categoryFragment_to_templeFragment"
+          app:destination="@+id/templeFragment"
+          app:enterAnim="@anim/slide_in_left"
+          app:exitAnim="@anim/slide_out_left">
+          <argument android:name="idcategory"
+              app:argType="string"/>
+      </action>
+        <action android:id="@+id/action_categoryFragment_to_homeFragment"
+            app:destination="@+id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right">
 
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/templeFragment"
+        android:name="com.example.fakewedding.fragment.TempleFragment"
+        tools:layout="@layout/fragment_temple"
+        android:label="Temple Fragment">
+        <action android:id="@+id/action_templeFragment_to_categoryFragment"
+            app:destination="@+id/categoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right">
+        </action>
     </fragment>
 </navigation>

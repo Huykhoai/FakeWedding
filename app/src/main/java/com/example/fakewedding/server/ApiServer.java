@@ -4,6 +4,7 @@ import com.example.fakewedding.model.Category;
 import com.example.fakewedding.model.DetailUser;
 import com.example.fakewedding.model.ImageUploadNam;
 import com.example.fakewedding.model.ListCategory;
+import com.example.fakewedding.model.ListTemple;
 import com.example.fakewedding.model.Login;
 import com.example.fakewedding.model.Message;
 
@@ -66,5 +67,8 @@ public interface ApiServer {
     );
     @GET(Server.DOMAIN4+"get/categories_wedding")
     Call<ListCategory> getCategory();
+    @GET("https://api.santacall.online/get/list_image_wedding/1")
+    Call<ListTemple> getListTemple(
+             @Query("album") long albumId);
 }
 

@@ -19,12 +19,14 @@ import java.util.List;
 public class ImageUploadAdapter extends RecyclerView.Adapter<ImageUploadAdapter.Viewholder> {
     Context context;
     List<String> list;
-
+    private OnclickImageUploaded imageUploaded;
     public ImageUploadAdapter(Context context, List<String> list) {
         this.context = context;
         this.list = list;
     }
-
+     public void setOnclickImageUploaded(OnclickImageUploaded imageUploaded){
+        this.imageUploaded = imageUploaded;
+     }
     @NonNull
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,6 +39,11 @@ public class ImageUploadAdapter extends RecyclerView.Adapter<ImageUploadAdapter.
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
            String image = list.get(position);
            Picasso.get().load(image).into(holder.imageView);
+           holder.itemView.setOnClickListener(v -> {
+               if(imageUploaded!= null){
+                   imageUploaded.setOnclick(image);
+               }
+           });
     }
 
     @Override
@@ -52,5 +59,8 @@ public class ImageUploadAdapter extends RecyclerView.Adapter<ImageUploadAdapter.
             super(itemView);
             imageView = itemView.findViewById(R.id.image_item_uploaded);
         }
+    }
+    public interface OnclickImageUploaded{
+        void setOnclick(String image);
     }
 }
