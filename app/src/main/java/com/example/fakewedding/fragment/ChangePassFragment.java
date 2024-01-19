@@ -85,10 +85,15 @@ public class ChangePassFragment extends Fragment {
                          @Override
                          public void onClick(DialogInterface dialog, int which) {
                             binding.editOldPass.setHint("Old password");
+                            binding.editOldPass.setText("");
                             binding.editNewPass.setHint("New password");
+                             binding.editNewPass.setText("");
                             binding.editCofirmPassword.setHint("Cofirm password");
+                             binding.editCofirmPassword.setText("");
                          }
                      });
+                     AlertDialog alertDialog =builder.create();
+                     alertDialog.show();
                  }else {
                      Log.d("error_changepass", "onResponse: error");
                  }
@@ -118,6 +123,13 @@ public class ChangePassFragment extends Fragment {
             binding.tvErrorNewpass.setVisibility(View.VISIBLE);
             return -1;
         }else {
+            if(newpass.equals(oldpass)){
+                binding.tvErrorNewpass.setText("The new password cannot be the same as the old password");
+                binding.tvErrorNewpass.setVisibility(View.VISIBLE);
+                return -1;
+            }else {
+                binding.tvErrorNewpass.setVisibility(View.INVISIBLE);
+            }
             binding.tvErrorNewpass.setVisibility(View.INVISIBLE);
         }
         if(confirm.isEmpty()){

@@ -38,6 +38,7 @@ public class CategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentCategoryBinding.inflate(inflater,container, false);
+        backHome();
         getData();
         return binding.getRoot();
     }
@@ -80,5 +81,12 @@ public class CategoryFragment extends Fragment {
 
             }
         });
+    }
+    private void backHome(){
+        binding.categoryMenu.setOnClickListener(v -> {
+            NavController nav = NavHostFragment.findNavController(this);
+            nav.navigate(R.id.action_categoryFragment_to_homeFragment);
+        });
+
     }
 }
