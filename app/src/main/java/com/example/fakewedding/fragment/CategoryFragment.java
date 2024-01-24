@@ -31,7 +31,7 @@ import retrofit2.Response;
 
 public class CategoryFragment extends Fragment {
     FragmentCategoryBinding binding;
-    List<Category> categories;
+    public static List<Category> categories;
     CategoryAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -21,6 +21,7 @@ import android.graphics.Rect;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -35,8 +36,11 @@ import com.example.fakewedding.R;
 import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.ActivitySwapingBinding;
 import com.example.fakewedding.dialog.MyDialog;
+import com.example.fakewedding.fragment.CategoryFragment;
+import com.example.fakewedding.model.Temple;
 import com.example.fakewedding.server.ApiServer;
 import com.example.fakewedding.server.Server;
+import com.example.fakewedding.until.RealPathUtil;
 import com.example.fakewedding.until.Util;
 import com.google.android.gms.tasks.Task;
 import com.google.mlkit.vision.common.InputImage;
@@ -71,23 +75,39 @@ public class SwapingActivity extends AppCompatActivity {
     private boolean isCheckSetImageFemale = false;
     private boolean isCheckSetImageMale = false;
     int id_user ;
+    String name_category;
     String author;
-    private String imgBase64Female;
-    private String urlImageMale;
-    private String urlImageFemale;
+    Temple temple;
     String uriResponseMale;
     String uriResponseFemale;
     File imageFile;
     Uri selectedImage;
     private MyDialog myDialog;
+    String imgBase64Female;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySwapingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loadIdUser();
+        getNameCategory();
         initListener();
     }
+
+    private void getNameCategory() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        temple = (Temple) bundle.getSerializable("temple");
+        for(int i=0;i< CategoryFragment.categories.size();i++){
+            if(CategoryFragment.categories.get(i).getId_cate()==temple.getId_category()){
+                name_category = CategoryFragment.categories.get(i).getFolder_name();
+                Log.d("name_category", "getNameCategory: "+name_category);
+            }
+        }
+    }
+
+
+
     private void loadIdUser() {
         SharedPreferences sharedPreferences = getSharedPreferences("id_user",0);
         String id_user_str = sharedPreferences.getString("id_user_str", "");
@@ -200,6 +220,7 @@ public class SwapingActivity extends AppCompatActivity {
     private void initListener() {
         binding.btnswap1.setOnClickListener(v -> {
             checkClickSetImageMale =true;
+            Log.d("HuyBoolean", "initListener: "+checkClickSetImageMale);
             Intent intent = new Intent(SwapingActivity.this, UploadActivity.class);
             intent.putExtra("male", true);
             launcher.launch(intent);
@@ -207,6 +228,7 @@ public class SwapingActivity extends AppCompatActivity {
 
         binding.btnswap2.setOnClickListener(v -> {
             checkClickSetImageMale= false;
+            Log.d("HuyBoolean", "initListener1: "+checkClickSetImageMale);
             Intent intent = new Intent(SwapingActivity.this, UploadActivity.class);
             intent.putExtra("male", false);
             launcher.launch(intent);
@@ -224,42 +246,55 @@ public class SwapingActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(SwapingActivity.this, "Please waiting a time!", Toast.LENGTH_SHORT).show();
                     lockBtnSelectImage();
+                    swapImage();
                 }
             }
         });
     }
-//    private void swapImage(){
-//        ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN3).getRetrofit().create(ApiServer.class);
-//        Call<Object> call = apiServer.postSwap(author, uriResponseMale, uriResponseFemale);
-//        call.enqueue(new Callback<Object>() {
-//            @Override
-//            public void onResponse(Call<Object> call, Response<Object> response) {
-//                 if(response.isSuccessful() && response != null){
-//                     Log.d("imageSwap", "onResponse: "+response.body());
-//                 }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Object> call, Throwable t) {
-//
-//            }
-//        });
-//    }
+    private void swapImage(){
+        ApiServer apiServer = RetrofitClient.getInstance("").getRetrofit().create(ApiServer.class);
+        Log.d("Huy", "swapImage: "+author+"+"+ uriResponseMale+"+"+uriResponseFemale+"+"+id_user+"+"+name_category);
+      Call<Object> call = apiServer.swapImage("Bearer "+author, uriResponseMale,uriResponseFemale,"dsasa","dasada",id_user,name_category);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                 if(response.isSuccessful() && response.body() != null){
+                     Log.d("Huy", "onResponse: "+response.body());
+                 }else {
+                     Log.d("Huy", "Error: "+response.toString());
+                 }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.d("HuyFail", "onFailure: "+t.getMessage());
+            }
+        });
+    }
    private void getData(Uri imageselected){
-        String filePath =getRealPathFromURI(SwapingActivity.this,imageselected);
+       Log.d("UriimageSelected", "getData: "+imageselected);
+        String filePath ="";
+                if(Build.VERSION.SDK_INT<11){
+                    filePath = RealPathUtil.getRealPathFromURI_BelowAPI11(this,imageselected);
+                }else if(Build.VERSION.SDK_INT<19){
+                    filePath = RealPathUtil.getRealPathFromURI_API11to18(this,imageselected);
+                }else {
+                    filePath = RealPathUtil.getRealPathFromURI_API19(this,imageselected);
+                }
         imageFile =new File(filePath);
        Log.d("check_upload_image", "getData_0: "+ imageFile);
-       RequestBody requestBody =RequestBody.create(MediaType.parse("multipart/form-data"),imageFile);
+       RequestBody requestBody =RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
        MultipartBody.Part imagePart =MultipartBody.Part.createFormData("src_img",imageFile.getName(),requestBody);
        ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
        Log.d("check_upload_image", "getData: "+ id_user + imagePart);
        if(checkClickSetImageMale){
+           Log.d("HuyBoolean", "getData: "+checkClickSetImageMale);
            Call<String>call = apiServer.uploadImage(id_user, "src_nam", imagePart);
            call.enqueue(new Callback<String>() {
                @Override
                public void onResponse(Call<String> call, Response<String> response) {
                   if(response.isSuccessful()){
-                      Log.d("check_upload_image", "onResponse: "+ response.body());
+                      Log.d("Huy", "onResponse: "+ response.body());
                         uriResponseMale = response.body();
                   }
                }
@@ -270,12 +305,13 @@ public class SwapingActivity extends AppCompatActivity {
                }
            });
        }else {
+           Log.d("HuyBoolean", "getData: "+checkClickSetImageMale);
            Call<String>call = apiServer.uploadImage(id_user, "src_nu", imagePart);
            call.enqueue(new Callback<String>() {
                @Override
                public void onResponse(Call<String> call, Response<String> response) {
                    if(response.isSuccessful()){
-                       Log.d("check_upload_image", "onResponse: "+ response.body());
+                       Log.d("Huy", "onResponse: "+ response.body());
                        uriResponseFemale = response.body();
 
                    }
@@ -290,21 +326,25 @@ public class SwapingActivity extends AppCompatActivity {
 
 
    }
-    public static String getRealPathFromURI(Context context, Uri contentUri) {
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = context.getContentResolver().query(contentUri, projection, null, null, null);
-
-        if (cursor == null) {
-            return null;
-        }
-
-        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String filePath = cursor.getString(columnIndex);
-        cursor.close();
-
-        return filePath;
-    }
+//    public static String getRealPathFromURI(Context context, Uri contentUri) {
+//        if (contentUri == null) {
+//            return null;
+//        }
+//
+//        String[] projection = {MediaStore.Images.Media.DATA};
+//        Cursor cursor = context.getContentResolver().query(contentUri, projection, null, null, null);
+//
+//        if (cursor == null) {
+//            return null;
+//        }
+//
+//        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//        cursor.moveToFirst();
+//        String filePath = cursor.getString(columnIndex);
+//        cursor.close();
+//
+//        return filePath;
+//    }
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -315,7 +355,8 @@ public class SwapingActivity extends AppCompatActivity {
                             Intent intent = o.getData();
                             if (intent != null) {
                                 Bundle bundle = intent.getExtras();
-                                 selectedImage = Uri.parse(bundle.getString("selected_image"));
+                                String filePath = bundle.getString("selected_image");
+                                 selectedImage = Uri.parse(filePath);
                                 Log.d("selectedImage", "ResultSelected: "+selectedImage);
                                  Bitmap bitmap;
                                 bitmap = MediaStore.Images.Media.getBitmap(SwapingActivity.this.getContentResolver(), selectedImage);
@@ -376,10 +417,7 @@ public class SwapingActivity extends AppCompatActivity {
                             Bitmap bitmap =rotaImageHadlee(String.valueOf(selectedImage));
                             if (checkClickSetImageMale) {
                                 detectionFace(bitmap);
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
+
                                         Log.d("result", "detectionFace: "+resultDetech);
                                         if (resultDetech != null && resultDetech.equals("ok")) {
                                             try {
@@ -392,14 +430,10 @@ public class SwapingActivity extends AppCompatActivity {
                                         } else {
                                             isCheckSetImageMale = false;
                                         }
-                                    }
-                                }, 4000);
                             } else {
                                 detectionFace(bitmap);
                                 Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
+
                                         if (resultDetech != null && resultDetech.equals("ok")) {
                                             try {
                                                 imgBase64Female = Util.convertBitmapToBase64(bitmap);
@@ -411,8 +445,6 @@ public class SwapingActivity extends AppCompatActivity {
                                         } else {
                                             isCheckSetImageFemale = false;
                                         }
-                                    }
-                                }, 4000);
                             }
                         }
                     }else if(o.getResultCode()==3){
@@ -429,15 +461,12 @@ public class SwapingActivity extends AppCompatActivity {
                                 if (checkClickSetImageMale){
                                     detectionFace(bitmap);
 
-                                    Handler handler = new Handler();
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
+
                                             Log.d("result", "detectionFace: "+resultDetech);
                                             if (resultDetech != null && resultDetech.equals("ok")) {
                                                 try {
                                                     imgBase64Male = Util.convertBitmapToBase64(bitmap);
-                                                    getData(selectedImage);
+                                                    //getData(selectedImage);
                                                 } catch (IOException e) {
                                                     throw new RuntimeException(e);
                                                 }
@@ -445,19 +474,15 @@ public class SwapingActivity extends AppCompatActivity {
                                             } else {
                                                 isCheckSetImageMale = false;
                                             }
-                                        }
-                                    }, 4000);
+
                                 } else {
                                     detectionFace(bitmap);
-                                    Handler handler = new Handler();
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
+
                                             if (resultDetech != null && resultDetech.equals("ok")) {
                                                 try {
                                                     imgBase64Female = Util.convertBitmapToBase64(bitmap);
                                                     Log.d("baseImage", "run: "+imgBase64Male);
-                                                    getData(selectedImage);
+                                                  //  getData(selectedImage);
                                                 } catch (IOException e) {
                                                     throw new RuntimeException(e);
                                                 }
@@ -465,8 +490,6 @@ public class SwapingActivity extends AppCompatActivity {
                                             } else {
                                                 isCheckSetImageFemale = false;
                                             }
-                                        }
-                                    }, 4000);
                                 }
 
                             }

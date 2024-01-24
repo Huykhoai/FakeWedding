@@ -70,5 +70,20 @@ public interface ApiServer {
     @GET("https://api.santacall.online/get/list_image_wedding/1")
     Call<ListTemple> getListTemple(
              @Query("album") long albumId);
+
+
+    @GET("https://api.santacall.online/getdata/swap/listimage_wedding")
+    Call<Object> swapImage(
+            @Header("Authorization") String authorization,
+            @Header("link1") String link1,
+            @Header("link2") String link2,
+            @Query("device_them_su_kien") String device_them_su_kien,
+            @Query("ip_them_su_kien") String ip_them_su_kien,
+            @Query("id_user") long id_user,
+            @Query("list_folder") String list_folder
+    );
 }
+
+
+
 

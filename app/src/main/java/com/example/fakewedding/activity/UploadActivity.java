@@ -12,11 +12,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +37,7 @@ import com.example.fakewedding.dialog.MyDialog;
 import com.example.fakewedding.model.ImageUploadNam;
 import com.example.fakewedding.server.ApiServer;
 import com.example.fakewedding.server.Server;
+import com.example.fakewedding.until.RealPathUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -170,14 +175,24 @@ public class UploadActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(UploadActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
             startStorage();
         }else {
-            ActivityCompat.requestPermissions(UploadActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSIONS_STORAGE);
+            ActivityCompat.requestPermissions(UploadActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+             Manifest.permission.MANAGE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSIONS_STORAGE);
         }
     }
     private void startStorage(){
         closeDialog();
-        Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        pickIntent.setType("image/*");
-        startActivityForResult(pickIntent, IMAGE_PICKER_SELECT);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            // Trước KITKAT (API level 19), sử dụng Intent.ACTION_GET_CONTENT
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent, IMAGE_PICKER_SELECT);
+        } else {
+            // KITKAT và sau đó, sử dụng Intent.ACTION_OPEN_DOCUMENT
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("image/*");
+            startActivityForResult(intent, IMAGE_PICKER_SELECT);
+        }
     }
 
 
@@ -219,10 +234,11 @@ public class UploadActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==IMAGE_PICKER_SELECT && resultCode== RESULT_OK && data!= null){
-            Uri selectedImage = data.getData();
+            Uri uri = data.getData();
+            Log.d("realPath", "onActivityResult: "+uri);
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
-            bundle.putString("selected_image", String.valueOf(selectedImage));
+            bundle.putString("selected_image", String.valueOf(uri));
             intent.putExtras(bundle);
             setResult(1,intent);
             finish();
@@ -239,7 +255,6 @@ public class UploadActivity extends AppCompatActivity {
         }
 
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
