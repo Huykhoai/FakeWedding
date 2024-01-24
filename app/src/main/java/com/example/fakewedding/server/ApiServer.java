@@ -65,9 +65,9 @@ public interface ApiServer {
             @Path("page") long id,
             @Query("type") String type
     );
-    @GET(Server.DOMAIN4+"get/categories_wedding")
+    @GET(Server.DOMAIN2+"get/categories_wedding")
     Call<ListCategory> getCategory();
-    @GET("https://api.santacall.online/get/list_image_wedding/1")
+    @GET("https://metatechvn.store/get/list_image_wedding/1")
     Call<ListTemple> getListTemple(
              @Query("album") long albumId);
 

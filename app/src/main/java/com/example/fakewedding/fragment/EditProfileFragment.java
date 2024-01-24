@@ -127,7 +127,7 @@ public class EditProfileFragment extends Fragment {
 
     }
     private void getData(){
-        ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN3).getRetrofit().create(ApiServer.class);
+        ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
         Call<DetailUser> call = apiServer.getUSer(id_user);
         call.enqueue(new Callback<DetailUser>() {
             @Override
