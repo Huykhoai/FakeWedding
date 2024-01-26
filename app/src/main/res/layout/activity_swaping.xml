@@ -7,6 +7,7 @@
     tools:context=".activity.SwapingActivity"
     android:background="#C2E9F0">
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="299dp"
@@ -127,4 +128,5 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/back_right" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import com.example.fakewedding.model.ListCategory;
 import com.example.fakewedding.model.ListTemple;
 import com.example.fakewedding.model.Login;
 import com.example.fakewedding.model.Message;
+import com.example.fakewedding.model.SwapEventData;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -72,8 +73,8 @@ public interface ApiServer {
              @Query("album") long albumId);
 
 
-    @GET("https://api.santacall.online/getdata/swap/listimage_wedding")
-    Call<Object> swapImage(
+    @GET("https://thinkdiff.us/getdata/swap/listimage_wedding")
+    Call<SwapEventData> swapImage(
             @Header("Authorization") String authorization,
             @Header("link1") String link1,
             @Header("link2") String link2,

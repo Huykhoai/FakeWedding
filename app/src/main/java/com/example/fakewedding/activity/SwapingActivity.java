@@ -4,25 +4,21 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -30,14 +26,16 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.fakewedding.R;
 import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.ActivitySwapingBinding;
+import com.example.fakewedding.databinding.DialogProgressSwapBinding;
 import com.example.fakewedding.dialog.MyDialog;
 import com.example.fakewedding.fragment.CategoryFragment;
+import com.example.fakewedding.model.SwapEventData;
+import com.example.fakewedding.model.SwapEventInfo;
 import com.example.fakewedding.model.Temple;
 import com.example.fakewedding.server.ApiServer;
 import com.example.fakewedding.server.Server;
@@ -63,7 +61,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class SwapingActivity extends AppCompatActivity {
     ActivitySwapingBinding binding;
@@ -86,16 +83,61 @@ public class SwapingActivity extends AppCompatActivity {
     Uri selectedImage;
     private MyDialog myDialog;
     String imgBase64Female;
+    Dialog dialogUpload;
+    Dialog dialogSwap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySwapingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         loadIdUser();
         getNameCategory();
         initListener();
     }
+    private Dialog DialogSwap(){
+        Dialog dialog = new Dialog(SwapingActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_progress_swap);
+        Window window = dialog.getWindow();
+        if(window == null){
+            return null;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        int totalTime = 180000;
+        DialogProgressSwapBinding swapBinding = DialogProgressSwapBinding.inflate(getLayoutInflater());
+        CountDownTimer countDownTimer = new CountDownTimer(totalTime, 1000) {
 
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // Tính phần trăm còn lại và cập nhật ProgressBar
+                int progress = (int) ((totalTime - millisUntilFinished) * 100 / totalTime);
+                swapBinding.progressBar.setProgress(progress);
+            }
+
+            @Override
+            public void onFinish() {
+                // Cập nhật ProgressBar khi kết thúc
+                swapBinding.progressBar.setProgress(100);
+            }
+        };
+        countDownTimer.start();
+        return dialog;
+
+    }
+    private Dialog DialogUpload(){
+       Dialog dialog = new Dialog(SwapingActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_progress_upload);
+        Window window = dialog.getWindow();
+        if(window == null){
+            return null;
+        }
+        window.setLayout(200, 200);
+        dialog.setCancelable(false);
+        return dialog;
+    }
     private void getNameCategory() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -225,7 +267,6 @@ public class SwapingActivity extends AppCompatActivity {
             Log.d("HuyBoolean", "initListener: "+checkClickSetImageMale);
             Intent intent = new Intent(SwapingActivity.this, UploadActivity.class);
             intent.putExtra("male", true);
-            binding.btnswap1.setEnabled(false);
             launcher.launch(intent);
         });
 
@@ -234,7 +275,6 @@ public class SwapingActivity extends AppCompatActivity {
             Log.d("HuyBoolean", "initListener1: "+checkClickSetImageMale);
             Intent intent = new Intent(SwapingActivity.this, UploadActivity.class);
             intent.putExtra("male", false);
-            binding.btnswap2.setEnabled(false);
             launcher.launch(intent);
         });
         binding.btnGenerate.setOnClickListener(new View.OnClickListener() {
@@ -248,9 +288,10 @@ public class SwapingActivity extends AppCompatActivity {
                     myDialog.setContentButton("Ok");
                     myDialog.show();
                 }else {
-                    Toast.makeText(SwapingActivity.this, "Please waiting a time!", Toast.LENGTH_SHORT).show();
                     lockBtnSelectImage();
                     swapImage();
+                     dialogSwap= DialogSwap();
+                    dialogSwap.show();
                 }
             }
         });
@@ -258,19 +299,24 @@ public class SwapingActivity extends AppCompatActivity {
     private void swapImage(){
         ApiServer apiServer = RetrofitClient.getInstance("").getRetrofit().create(ApiServer.class);
         Log.d("Huy", "swapImage: "+author+"+"+ uriResponseMale+"+"+uriResponseFemale+"+"+id_user+"+"+name_category);
-      Call<Object> call = apiServer.swapImage("Bearer "+author, uriResponseMale,uriResponseFemale,"dsasa","dasada",id_user,name_category);
-        call.enqueue(new Callback<Object>() {
+      Call<SwapEventData> call = apiServer.swapImage("Bearer "+author, uriResponseMale,uriResponseFemale,"fsfdsfs","fsffe",id_user,name_category);
+        call.enqueue(new Callback<SwapEventData>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<SwapEventData> call, Response<SwapEventData> response) {
                  if(response.isSuccessful() && response.body() != null){
                      Log.d("Huy", "onResponse: "+response.body());
+                     dialogSwap.dismiss();
+                     SwapEventData swapEventData = response.body();
+                     List<String>  listImage = swapEventData.getSwapImageLinks();
+                     SwapEventInfo swapEventInfo = swapEventData.getSwapEventInfo();
+
                  }else {
                      Log.d("Huy", "Error: "+response.toString());
                  }
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<SwapEventData> call, Throwable t) {
                 Log.d("HuyFail", "onFailure: "+t.getMessage());
             }
         });
@@ -299,14 +345,16 @@ public class SwapingActivity extends AppCompatActivity {
                public void onResponse(Call<String> call, Response<String> response) {
                   if(response.isSuccessful()){
                       Log.d("Huy", "onResponse: "+ response.body());
-                        uriResponseMale = response.body();
+                      uriResponseMale = response.body();
+
                       new Handler().postDelayed(new Runnable() {
                           @Override
                           public void run() {
                               binding.btnswap1.setEnabled(true);
                               binding.btnswap2.setEnabled(true);
+                              dialogUpload.dismiss();
                           }
-                      },5000);
+                      },3000);
                   }
                }
 
@@ -325,8 +373,14 @@ public class SwapingActivity extends AppCompatActivity {
                        Log.d("Huy", "onResponse: "+ response.body());
                        uriResponseFemale = response.body();
 
-                       if(uriResponseFemale != null){
-                       }
+                       new Handler().postDelayed(new Runnable() {
+                           @Override
+                           public void run() {
+                               binding.btnswap1.setEnabled(true);
+                               binding.btnswap2.setEnabled(true);
+                               dialogUpload.dismiss();
+                           }
+                       },3000);
                    }
                }
 
@@ -339,25 +393,7 @@ public class SwapingActivity extends AppCompatActivity {
 
 
    }
-//    public static String getRealPathFromURI(Context context, Uri contentUri) {
-//        if (contentUri == null) {
-//            return null;
-//        }
-//
-//        String[] projection = {MediaStore.Images.Media.DATA};
-//        Cursor cursor = context.getContentResolver().query(contentUri, projection, null, null, null);
-//
-//        if (cursor == null) {
-//            return null;
-//        }
-//
-//        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//        cursor.moveToFirst();
-//        String filePath = cursor.getString(columnIndex);
-//        cursor.close();
-//
-//        return filePath;
-//    }
+
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -376,14 +412,15 @@ public class SwapingActivity extends AppCompatActivity {
                                 Log.d("Huybimap", "onActivityResult: "+bitmap);
                                 if (checkClickSetImageMale){
                                     detectionFace(bitmap);
-                                    Toast.makeText(SwapingActivity.this, "Wait 5 seconds to check the photo", Toast.LENGTH_SHORT).show();
+                                    dialogUpload = DialogUpload();
+                                    lockBtnSelectImage();
+                                    dialogUpload.show();
                                     Handler handler = new Handler();
                                     handler.postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             Log.d("result", "detectionFace: "+resultDetech);
                                             if (resultDetech != null && resultDetech.equals("ok")) {
-
                                                 try {
                                                     imgBase64Male = Util.convertBitmapToBase64(bitmap);
                                                     getData(selectedImage);
@@ -396,10 +433,12 @@ public class SwapingActivity extends AppCompatActivity {
                                             }
 
                                         }
-                                    }, 4000);
+                                    }, 1500);
                                 } else {
                                     detectionFace(bitmap);
-                                    Toast.makeText(SwapingActivity.this, "Wait 5 seconds to check the photo", Toast.LENGTH_SHORT).show();
+                                    dialogUpload = DialogUpload();
+                                    lockBtnSelectImage();
+                                    dialogUpload.show();
                                     Handler handler = new Handler();
                                     handler.postDelayed(new Runnable() {
                                         @Override
@@ -417,7 +456,7 @@ public class SwapingActivity extends AppCompatActivity {
                                                 isCheckSetImageFemale = false;
                                             }
                                         }
-                                    }, 4000);
+                                    }, 1500);
                                 }
 
                             }
@@ -433,11 +472,18 @@ public class SwapingActivity extends AppCompatActivity {
                             Bitmap bitmap =rotaImageHadlee(String.valueOf(selectedImage));
                             if (checkClickSetImageMale) {
                                 detectionFace(bitmap);
-                                Toast.makeText(SwapingActivity.this, "Wait 5 seconds to check the photo", Toast.LENGTH_SHORT).show();
-                                Log.d("result", "detectionFace: "+resultDetech);
+                                dialogUpload = DialogUpload();
+                                lockBtnSelectImage();
+                                dialogUpload.show();
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Log.d("result", "detectionFace: " + resultDetech);
                                         if (resultDetech != null && resultDetech.equals("ok")) {
                                             try {
                                                 imgBase64Male = Util.convertBitmapToBase64(bitmap);
+
                                                 getData(selectedImage);
                                             } catch (IOException e) {
                                                 throw new RuntimeException(e);
@@ -446,13 +492,21 @@ public class SwapingActivity extends AppCompatActivity {
                                         } else {
                                             isCheckSetImageMale = false;
                                         }
+                                    }
+                                },1500);
                             } else {
                                 detectionFace(bitmap);
-                                Toast.makeText(SwapingActivity.this, "Wait 5 seconds to check the photo", Toast.LENGTH_SHORT).show();
-
+                                dialogUpload = DialogUpload();
+                                lockBtnSelectImage();
+                                dialogUpload.show();
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
                                         if (resultDetech != null && resultDetech.equals("ok")) {
                                             try {
                                                 imgBase64Female = Util.convertBitmapToBase64(bitmap);
+
                                                 getData(selectedImage);
                                             } catch (IOException e) {
                                                 throw new RuntimeException(e);
@@ -461,6 +515,8 @@ public class SwapingActivity extends AppCompatActivity {
                                         } else {
                                             isCheckSetImageFemale = false;
                                         }
+                                    }
+                                },1500);
                             }
                         }
                     }else if(o.getResultCode()==3){
@@ -470,7 +526,6 @@ public class SwapingActivity extends AppCompatActivity {
                                 selectedImage = Uri.parse(bundle.getString("image_uploaded"));
                                 Log.d("selectedImage", "ResultSelected: "+selectedImage);
                                 if (checkClickSetImageMale){
-                                    Toast.makeText(SwapingActivity.this, "Wait 5 seconds to check the photo", Toast.LENGTH_SHORT).show();
                                     String strimage = selectedImage.toString();
                                     uriResponseMale = strimage.replace("https://futurelove.online","/var/www/build_futurelove");
                                     Log.d("HuyuriResponse", "onActivityResult: "+uriResponseMale);
@@ -478,7 +533,6 @@ public class SwapingActivity extends AppCompatActivity {
                                     Picasso.get().load(selectedImage).into(binding.imageswap1);
 
                                 } else {
-                                    Toast.makeText(SwapingActivity.this, "Wait 5 seconds to check the photo", Toast.LENGTH_SHORT).show();
                                     String strimage = selectedImage.toString();
                                     uriResponseFemale= strimage.replace("https://futurelove.online","/var/www/build_futurelove");
                                     Log.d("HuyuriResponse", "onActivityResult: "+uriResponseFemale);
@@ -528,6 +582,5 @@ public class SwapingActivity extends AppCompatActivity {
     private void lockBtnSelectImage() {
         binding.btnswap1.setEnabled(false);
         binding.btnswap2.setEnabled(false);
-        binding.btnGenerate.setEnabled(false);
     }
 }

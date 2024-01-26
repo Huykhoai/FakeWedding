@@ -28,9 +28,9 @@ public class RetrofitClient {
         };
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
          okBuilder.addInterceptor(interceptor)
-                 .callTimeout(500000, TimeUnit.MILLISECONDS)
-                 .connectTimeout(500000, TimeUnit.MILLISECONDS)
-                 .readTimeout(50000,TimeUnit.MILLISECONDS);
+                 .callTimeout(200000, TimeUnit.MILLISECONDS)
+                 .connectTimeout(200000, TimeUnit.MILLISECONDS)
+                 .readTimeout(200000,TimeUnit.MILLISECONDS);
 
         Gson gson =new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
