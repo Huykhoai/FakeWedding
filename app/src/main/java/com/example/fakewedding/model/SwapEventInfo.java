@@ -2,7 +2,9 @@ package com.example.fakewedding.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SwapEventInfo {
+import java.io.Serializable;
+
+public class SwapEventInfo implements Serializable {
     @SerializedName("id_saved")
     private String idSaved;
 

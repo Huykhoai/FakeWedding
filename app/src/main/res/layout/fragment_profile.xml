@@ -57,7 +57,6 @@
                 android:id="@+id/avatar_profile"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/border50_white"
                 android:src="@drawable/avatar_profile" />
         </androidx.cardview.widget.CardView>
 
@@ -110,6 +109,21 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+    <TextView
+        android:id="@+id/profile_image_swapped"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Album Image Swapped"
+        android:textSize="24dp"
+        android:layout_marginTop="24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_home" />
+
     <TextView
         android:id="@+id/profile_service"
         android:layout_width="match_parent"
@@ -123,7 +137,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_home" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_image_swapped" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_logout"

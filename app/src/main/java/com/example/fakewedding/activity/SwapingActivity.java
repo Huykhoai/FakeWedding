@@ -12,8 +12,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -28,6 +30,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.fakewedding.R;
 import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.ActivitySwapingBinding;
@@ -52,6 +55,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,38 +99,9 @@ public class SwapingActivity extends AppCompatActivity {
         getNameCategory();
         initListener();
     }
-    private Dialog DialogSwap(){
-        Dialog dialog = new Dialog(SwapingActivity.this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_progress_swap);
-        Window window = dialog.getWindow();
-        if(window == null){
-            return null;
-        }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-        int totalTime = 180000;
-        DialogProgressSwapBinding swapBinding = DialogProgressSwapBinding.inflate(getLayoutInflater());
-        CountDownTimer countDownTimer = new CountDownTimer(totalTime, 1000) {
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-                // Tính phần trăm còn lại và cập nhật ProgressBar
-                int progress = (int) ((totalTime - millisUntilFinished) * 100 / totalTime);
-                swapBinding.progressBar.setProgress(progress);
-            }
-
-            @Override
-            public void onFinish() {
-                // Cập nhật ProgressBar khi kết thúc
-                swapBinding.progressBar.setProgress(100);
-            }
-        };
-        countDownTimer.start();
-        return dialog;
-
-    }
-    private Dialog DialogUpload(){
+    private Dialog
+    DialogUpload(){
        Dialog dialog = new Dialog(SwapingActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_progress_upload);
@@ -134,8 +109,11 @@ public class SwapingActivity extends AppCompatActivity {
         if(window == null){
             return null;
         }
-        window.setLayout(200, 200);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, 300 );
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCancelable(false);
+        LottieAnimationView lottie = dialog.findViewById(R.id.lotteAnimationView);
+        lottie.playAnimation();
         return dialog;
     }
     private void getNameCategory() {
@@ -290,7 +268,7 @@ public class SwapingActivity extends AppCompatActivity {
                 }else {
                     lockBtnSelectImage();
                     swapImage();
-                     dialogSwap= DialogSwap();
+                     dialogSwap= DialogUpload();
                     dialogSwap.show();
                 }
             }
@@ -309,7 +287,13 @@ public class SwapingActivity extends AppCompatActivity {
                      SwapEventData swapEventData = response.body();
                      List<String>  listImage = swapEventData.getSwapImageLinks();
                      SwapEventInfo swapEventInfo = swapEventData.getSwapEventInfo();
-
+                     Log.d("Huy", "result: "+swapEventInfo.getIdSaved());
+                     Intent intent = new Intent(SwapingActivity.this,ResultSwapActivity.class);
+                     Bundle bundle = new Bundle();
+                     bundle.putStringArrayList("listimage", new ArrayList<>(listImage));
+                     bundle.putSerializable("swapeventinfo",  swapEventInfo);
+                     intent.putExtras( bundle);
+                     startActivity(intent);
                  }else {
                      Log.d("Huy", "Error: "+response.toString());
                  }
@@ -354,7 +338,7 @@ public class SwapingActivity extends AppCompatActivity {
                               binding.btnswap2.setEnabled(true);
                               dialogUpload.dismiss();
                           }
-                      },3000);
+                      },2000);
                   }
                }
 
@@ -380,7 +364,7 @@ public class SwapingActivity extends AppCompatActivity {
                                binding.btnswap2.setEnabled(true);
                                dialogUpload.dismiss();
                            }
-                       },3000);
+                       },2000);
                    }
                }
 

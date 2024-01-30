@@ -38,6 +38,10 @@
             app:destination="@+id/accountFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"/>
+        <action android:id="@+id/acction_profileFragment_to_ImageSwapped"
+            app:destination="@+id/imageSwapped"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment android:id="@+id/accountFragment"
         android:name="com.example.fakewedding.fragment.EditProfileFragment"
@@ -92,5 +96,12 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_right">
         </action>
+    </fragment>
+    <fragment
+        android:id="@+id/imageSwapped"
+        android:name="com.example.fakewedding.fragment.AlbumSwapedFragment"
+        android:label="Image Swapped"
+        tools:layout="@layout/fragment_album_swaped">
+
     </fragment>
 </navigation>

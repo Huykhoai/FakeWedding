@@ -1,6 +1,7 @@
 package com.example.fakewedding.server;
 
 import com.example.fakewedding.model.Category;
+import com.example.fakewedding.model.ChangeAvatar;
 import com.example.fakewedding.model.DetailUser;
 import com.example.fakewedding.model.ImageUploadNam;
 import com.example.fakewedding.model.ListCategory;
@@ -36,6 +37,14 @@ public interface ApiServer {
             @Field("user_name") String userName,
             @Field("link_avatar") String linkAvatar,
             @Field("ip_register") String registerIp
+    );
+    @FormUrlEncoded
+    @POST(Server.CHANGE_AVATAR+"{page}")
+    Call<ChangeAvatar> changeavatar(
+            @Path("page") long id,
+            @Header("Authorization") String authorization,
+            @Field("link_img") String link_img,
+            @Field("check_img") String check_img
     );
     @Multipart
     @POST(Server.URI_UPLOAD_IMAGE+ "{page}")

@@ -30,6 +30,8 @@ import com.example.fakewedding.server.ApiServer;
 import com.example.fakewedding.server.Server;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,12 +52,17 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater,container,false);
         navHomeFragment();
         navAccountFragment();
+        navImageSwapped();
         Logout();
         loadIdUser();
         getData();
         return binding.getRoot();
     }
-
+    private void navImageSwapped(){
+        binding.profileImageSwapped.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.acction_profileFragment_to_ImageSwapped);
+        });
+    }
     private void navAccountFragment() {
         binding.constraintLayout3.setOnClickListener(v -> {
             NavController nav = NavHostFragment.findNavController(this);

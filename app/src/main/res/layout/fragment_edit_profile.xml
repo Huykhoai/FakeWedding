@@ -231,19 +231,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView6" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_account"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/btn_swap"
-        android:text="Save"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_location_account" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

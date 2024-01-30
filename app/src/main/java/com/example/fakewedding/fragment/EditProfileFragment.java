@@ -1,11 +1,13 @@
 package com.example.fakewedding.fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,9 +37,11 @@ import com.example.fakewedding.activity.UploadActivity;
 import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.DialogBottomBinding;
 import com.example.fakewedding.databinding.FragmentEditProfileBinding;
+import com.example.fakewedding.model.ChangeAvatar;
 import com.example.fakewedding.model.DetailUser;
 import com.example.fakewedding.server.ApiServer;
 import com.example.fakewedding.server.Server;
+import com.example.fakewedding.until.RealPathUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
@@ -46,6 +51,9 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,6 +70,7 @@ public class EditProfileFragment extends Fragment {
     private static final int REQUEST_CODE_PERMISSIONS_STORAGE = 101;
     public static final int RESULT_OK= -1;
     private File imageFile;
+    String token;
     public EditProfileFragment() {
         // Required empty public constructor
     }
@@ -75,10 +84,13 @@ public class EditProfileFragment extends Fragment {
         getData();
         clickChangepass();
         navProfileFragment();
+        clickChangeAvatar();
+        return binding.getRoot();
+    }
+    private void clickChangeAvatar(){
         binding.btnUploadAvatarAccount.setOnClickListener(v -> {
             openDialog();
         });
-        return binding.getRoot();
     }
 
     private void clickChangepass() {
@@ -118,6 +130,7 @@ public class EditProfileFragment extends Fragment {
     private void loadIdUser() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("id_user",0);
         String id_user_str = sharedPreferences.getString("id_user_str", "");
+        token = sharedPreferences.getString("token","");
         Log.d("check_user_id", "loadIdUser: "+ id_user_str);
         if (id_user_str == "") {
             id_user = 0;
@@ -150,7 +163,63 @@ public class EditProfileFragment extends Fragment {
             }
         });
     }
-    private void UploadImage(){
+    private void UploadImage(String imageupload){
+      ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
+      Call<ChangeAvatar> call = apiServer.changeavatar(id_user, "Bearer "+token, imageupload, "upload");
+      call.enqueue(new Callback<ChangeAvatar>() {
+          @Override
+          public void onResponse(Call<ChangeAvatar> call, Response<ChangeAvatar> response) {
+              if(response.isSuccessful()){
+                  ChangeAvatar changeAvatar = response.body();
+                  Log.d("Huy", "onResponse: "+changeAvatar.getImage());
+                  Picasso.get().load(imageupload).into(binding.avatarAccount);
+              }else {
+                  Toast.makeText(getActivity(), "Fail", Toast.LENGTH_SHORT).show();
+              }
+
+          }
+
+          @Override
+          public void onFailure(Call<ChangeAvatar> call, Throwable t) {
+              Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+          }
+      });
+    }
+    private void getData(Uri imageselected){
+        Log.d("UriimageSelected", "getData: "+imageselected);
+        String filePath ="";
+        if(Build.VERSION.SDK_INT<11){
+            filePath = RealPathUtil.getRealPathFromURI_BelowAPI11(getActivity(),imageselected);
+        }else if(Build.VERSION.SDK_INT<19){
+            filePath = RealPathUtil.getRealPathFromURI_API11to18(getActivity(),imageselected);
+        }else {
+            filePath = RealPathUtil.getRealPathFromURI_API19(getActivity(),imageselected);
+        }
+        imageFile =new File(filePath);
+        Log.d("Huy", "getData_0: "+ imageFile);
+        RequestBody requestBody =RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+        MultipartBody.Part imagePart =MultipartBody.Part.createFormData("src_img",imageFile.getName(),requestBody);
+        ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
+        Log.d("Huy", "getData: "+ id_user + imagePart);
+            Call<String>call = apiServer.uploadImage(id_user, "src_nam", imagePart);
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.isSuccessful()){
+                        Log.d("Huy", "getDataResult: "+ response.body());
+                        String ImageReplace = response.body().replace("/var/www/build_futurelove","https://futurelove.online");
+                        UploadImage(ImageReplace);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.d("Huy", "onFailure: "+ t.getMessage());
+                }
+            });
+
+
+
 
     }
     private void openDialog(){
@@ -169,12 +238,17 @@ public class EditProfileFragment extends Fragment {
         });
         bottom.show();
     }
-    @Override
+    @SuppressLint("Static0FieldLeak")
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==IMAGE_PICKER_SELECT && resultCode== RESULT_OK && data!= null){
             Uri selectedImage = data.getData();
-
+            Log.d("Huy", "onActivityResult: "+selectedImage);
+            getData(selectedImage);
+        }else if(requestCode==CAMERA_REQUEST){
+            Log.d("Huy", "onActivityResult: "+imageFile);
+            Uri imagefile = Uri.parse(imageFile.getAbsolutePath());
+            getData(imagefile);
         }
     }
     private void openStorage(){
@@ -186,9 +260,18 @@ public class EditProfileFragment extends Fragment {
     }
     private void startStorage(){
         closeDialog();
-        Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        pickIntent.setType("image/*");
-        startActivityForResult(pickIntent, IMAGE_PICKER_SELECT);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            // Trước KITKAT (API level 19), sử dụng Intent.ACTION_GET_CONTENT
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent, IMAGE_PICKER_SELECT);
+        } else {
+            // KITKAT và sau đó, sử dụng Intent.ACTION_OPEN_DOCUMENT
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("image/*");
+            startActivityForResult(intent, IMAGE_PICKER_SELECT);
+        }
     }
 
 
