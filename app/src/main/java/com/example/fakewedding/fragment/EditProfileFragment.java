@@ -153,6 +153,7 @@ public class EditProfileFragment extends Fragment {
                     binding.editEmailAccount.setText(user.getEmail());
                     binding.editEmailAccount.setEnabled(false);
                     binding.editLocationAccount.setEnabled(false);
+                    binding.editLocationAccount.setText(""+user.getIp_register());
                 }
 
             }

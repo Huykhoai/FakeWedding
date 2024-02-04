@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    >
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearance="@style/ShapeableImageView15dp"
+        android:background="@color/white"
+        app:strokeWidth="3dp"
+        app:strokeColor="@color/white"
+        android:id="@+id/item_image_swapped"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:src="@drawable/avatar_profile"
+        android:layout_gravity="center"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2024-02-01, 15:32:46"
+        android:id="@+id/item_txtdate_swapped"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/item_view_detail_swapped"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_swap"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:text="View detail"
+        android:textColor="@color/white"
+        android:layout_gravity="center"/>
+</LinearLayout>

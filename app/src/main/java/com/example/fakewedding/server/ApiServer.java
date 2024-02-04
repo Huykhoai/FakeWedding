@@ -1,7 +1,8 @@
 package com.example.fakewedding.server;
 
-import com.example.fakewedding.model.Category;
+import com.example.fakewedding.model.Album;
 import com.example.fakewedding.model.ChangeAvatar;
+import com.example.fakewedding.model.DetailAlbum;
 import com.example.fakewedding.model.DetailUser;
 import com.example.fakewedding.model.ImageUploadNam;
 import com.example.fakewedding.model.ListCategory;
@@ -9,6 +10,8 @@ import com.example.fakewedding.model.ListTemple;
 import com.example.fakewedding.model.Login;
 import com.example.fakewedding.model.Message;
 import com.example.fakewedding.model.SwapEventData;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -91,6 +94,13 @@ public interface ApiServer {
             @Query("ip_them_su_kien") String ip_them_su_kien,
             @Query("id_user") long id_user,
             @Query("list_folder") String list_folder
+    );
+    @GET("https://metatechvn.store/get/list_image/all_wedding_time")
+    Call<List<Album>> listAlbum();
+    @GET("https://metatechvn.store/get/list_2_image/id_image_swap_all_id_sk")
+    Call<DetailAlbum> listDetailAlbum(
+            @Query("id_user") int id_user,
+            @Query("id_sk") String id_sk
     );
 }
 

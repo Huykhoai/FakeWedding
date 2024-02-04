@@ -16,4 +16,6 @@ public interface Server {
     String GET_TEMPLE = "/get/list_image_wedding/1";
     String SWAP_IMAGE = "getdata/swap/listimage_wedding";
     String CHANGE_AVATAR = "changeavatar/";
+    String ALBUM_SWAPPED = "get/list_2_image/id_image_swap";
+
 }

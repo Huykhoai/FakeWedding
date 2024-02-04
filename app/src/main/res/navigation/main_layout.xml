@@ -102,6 +102,23 @@
         android:name="com.example.fakewedding.fragment.AlbumSwapedFragment"
         android:label="Image Swapped"
         tools:layout="@layout/fragment_album_swaped">
+        <action android:id="@+id/action_ImageswappedFragment_to_DetailSwappedFragment"
+            app:destination="@+id/detailSwappedFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left">
+            <argument android:name="id_sk"
+                app:argType="string"/>
+        </action>
+     <action android:id="@+id/action_Image_swappedFragment_to_ProfileFragment"
+         app:destination="@+id/profileFragment"
+         app:enterAnim="@anim/slide_in_right"
+         app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+    <fragment android:id="@+id/detailSwappedFragment"
+        android:name="com.example.fakewedding.fragment.DetailAlbumSwappedFragment"
+        tools:layout="@layout/fragment_detail_album_swapped"
+        android:label="Detail Swapped">
 
     </fragment>
 </navigation>

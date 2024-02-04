@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ShapeableImageView" >
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="ShapeableImageView15dp" >
+        <item name="cornerSize">15%</item>
+    </style>
+</resources>

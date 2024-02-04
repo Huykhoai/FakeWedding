@@ -44,23 +44,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
+                android:scaleType="centerCrop"
+                app:shapeAppearance="@style/ShapeableImageView"
+                app:strokeWidth="3dp"
+                app:strokeColor="@color/white"
                 android:id="@+id/avatar_profile"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/avatar_profile" />
-        </androidx.cardview.widget.CardView>
-
-
+                android:src="@drawable/avatar_profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
         <TextView
             android:id="@+id/name_profile"
             android:layout_width="wrap_content"
@@ -71,10 +66,11 @@
             android:textStyle="bold"
 
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toEndOf="@+id/avatar_profile"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.google.android.material.imageview.ShapeableImageView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_bottom"
