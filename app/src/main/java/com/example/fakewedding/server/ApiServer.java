@@ -80,7 +80,7 @@ public interface ApiServer {
     );
     @GET(Server.DOMAIN2+"get/categories_wedding")
     Call<ListCategory> getCategory();
-    @GET("https://metatechvn.store/get/list_image_wedding/1")
+    @GET("https://databaseswap.mangasocial.online/get/list_image_wedding/1")
     Call<ListTemple> getListTemple(
              @Query("album") long albumId);
 
@@ -95,9 +95,9 @@ public interface ApiServer {
             @Query("id_user") long id_user,
             @Query("list_folder") String list_folder
     );
-    @GET("https://metatechvn.store/get/list_image/all_wedding_time")
+    @GET("https://databaseswap.mangasocial.online/get/list_image/all_wedding_time")
     Call<List<Album>> listAlbum();
-    @GET("https://metatechvn.store/get/list_2_image/id_image_swap_all_id_sk")
+    @GET("https://databaseswap.mangasocial.online/get/list_2_image/id_image_swap_all_id_sk")
     Call<DetailAlbum> listDetailAlbum(
             @Query("id_user") int id_user,
             @Query("id_sk") String id_sk

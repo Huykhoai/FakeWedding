@@ -6,13 +6,11 @@
     android:layout_margin="5dp">
 
         <com.google.android.material.imageview.ShapeableImageView
-            app:shapeAppearance="@style/ShapeableImageView15dp"
-            android:background="@color/white"
             app:strokeWidth="3dp"
             app:strokeColor="@color/white"
             android:id="@+id/item_image_result"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="160dp"
+            android:layout_height="200dp"
             android:src="@drawable/avatar_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

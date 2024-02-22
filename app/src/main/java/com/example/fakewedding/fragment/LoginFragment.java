@@ -96,7 +96,7 @@ public class LoginFragment extends Fragment {
     }
     private void callLoginApi(QueryValueCallBack callBack, String email, String pass){
 
-        ApiServer apiServer = RetrofitClient.getInstance(Server.URI).getRetrofit().create(ApiServer.class);
+        ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
         Call<Login> call = apiServer.login(email,pass);
         call.enqueue(new Callback<Login>() {
             @Override

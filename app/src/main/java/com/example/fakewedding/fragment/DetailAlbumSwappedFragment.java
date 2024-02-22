@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.util.Log;
@@ -41,8 +42,16 @@ public class DetailAlbumSwappedFragment extends Fragment {
         getIdSk();
         loadIdUser();
         getData();
+        navAlbumSwapped();
         return binding.getRoot();
     }
+
+    private void navAlbumSwapped() {
+       binding.detailAlbumSwappedMenu.setOnClickListener(v -> {
+           NavHostFragment.findNavController(DetailAlbumSwappedFragment.this).navigate(R.id.action_detail_image_SwappedFragment_to_ImageSwapped);
+       });
+    }
+
     private void loadIdUser() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("id_user",0);
         String id_user_str = sharedPreferences.getString("id_user_str", "");

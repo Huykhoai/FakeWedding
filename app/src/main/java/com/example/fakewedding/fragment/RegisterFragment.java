@@ -104,7 +104,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void callSigninApi(QueryValueCallBack callBack, String email, String pass){
-        ApiServer apiServer = RetrofitClient.getInstance(Server.URI).getRetrofit().create(ApiServer.class);
+        ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
         Call<Object> call = apiServer.signup(email,pass,"abc","https://i.pinimg.com/564x/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg", "fsffe");
         call.enqueue(new Callback<Object>() {
             @Override

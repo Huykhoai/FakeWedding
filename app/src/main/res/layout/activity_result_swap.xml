@@ -111,12 +111,15 @@
             android:background="@drawable/btn_swap"
             android:layout_marginLeft="50dp"/>
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
+        android:id="@+id/recycle_result"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/linnerlayout2"
-        android:id="@+id/recycle_result"/>
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linnerlayout2" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btndownload"

@@ -2,7 +2,7 @@ package com.example.fakewedding.server;
 
 public interface Server {
     String URI = "https://metatechvn.store/";
-    String DOMAIN2 = "https://metatechvn.store/";
+    String DOMAIN2 = "https://databaseswap.mangasocial.online/";
     String DOMAIN3 ="https://sakaivn.online/";
     String DOMAIN4 = "https://api.santacall.online/";
     String URI_LOG_IN = "login";

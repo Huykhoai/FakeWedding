@@ -119,6 +119,9 @@
         android:name="com.example.fakewedding.fragment.DetailAlbumSwappedFragment"
         tools:layout="@layout/fragment_detail_album_swapped"
         android:label="Detail Swapped">
-
+    <action android:id="@+id/action_detail_image_SwappedFragment_to_ImageSwapped"
+        app:destination="@+id/imageSwapped"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_right"/>
     </fragment>
 </navigation>
