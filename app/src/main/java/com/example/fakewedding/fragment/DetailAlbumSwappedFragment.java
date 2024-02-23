@@ -48,8 +48,8 @@ public class DetailAlbumSwappedFragment extends Fragment {
 
     private void navAlbumSwapped() {
        binding.detailAlbumSwappedMenu.setOnClickListener(v -> {
-           NavHostFragment.findNavController(DetailAlbumSwappedFragment.this).navigate(R.id.action_detail_image_SwappedFragment_to_ImageSwapped);
-       });
+       NavHostFragment.findNavController(DetailAlbumSwappedFragment.this).navigate(R.id.action_detail_image_SwappedFragment_to_HomeFragment);
+      });
     }
 
     private void loadIdUser() {

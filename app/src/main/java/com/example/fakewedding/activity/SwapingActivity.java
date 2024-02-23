@@ -294,6 +294,8 @@ public class SwapingActivity extends AppCompatActivity {
                      bundle.putSerializable("swapeventinfo",  swapEventInfo);
                      intent.putExtras( bundle);
                      startActivity(intent);
+                     binding.imageswap1.setImageResource(R.drawable.imageswap);
+                     binding.imageswap2.setImageResource(R.drawable.imageswap);
                  }else {
                      Log.d("Huy", "Error: "+response.toString());
                  }

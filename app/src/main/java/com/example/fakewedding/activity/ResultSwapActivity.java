@@ -28,6 +28,7 @@ public class ResultSwapActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         getData();
         getResult();
+        Back();
         binding.btndownload.setOnClickListener(v -> {
             DownloadImage.downloadImages(ResultSwapActivity.this,"image",listImage);
         });
@@ -53,5 +54,7 @@ public class ResultSwapActivity extends AppCompatActivity {
         listImage = bundle.getStringArrayList("listimage");
         Log.d("Huy", "listImage: "+listImage.get(0));
     }
-
+    private void Back(){
+        binding.resultMenu.setOnClickListener(v -> {onBackPressed();});
+    }
 }

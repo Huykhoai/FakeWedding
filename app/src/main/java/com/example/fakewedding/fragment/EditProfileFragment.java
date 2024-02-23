@@ -19,6 +19,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -34,9 +35,14 @@ import android.widget.Toast;
 
 import com.example.fakewedding.R;
 import com.example.fakewedding.activity.UploadActivity;
+import com.example.fakewedding.adapter.AlbumById_Adapter;
+import com.example.fakewedding.adapter.Album_Swapped_adapter;
 import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.DialogBottomBinding;
 import com.example.fakewedding.databinding.FragmentEditProfileBinding;
+import com.example.fakewedding.fragment.EditProfileFragmentDirections;
+import com.example.fakewedding.model.Album;
+import com.example.fakewedding.model.AlbumSwapped;
 import com.example.fakewedding.model.ChangeAvatar;
 import com.example.fakewedding.model.DetailUser;
 import com.example.fakewedding.server.ApiServer;
@@ -50,6 +56,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -71,6 +79,8 @@ public class EditProfileFragment extends Fragment {
     public static final int RESULT_OK= -1;
     private File imageFile;
     String token;
+    ArrayList<AlbumSwapped> swappedArrayList;
+    AlbumById_Adapter adapter;
     public EditProfileFragment() {
         // Required empty public constructor
     }
@@ -85,7 +95,49 @@ public class EditProfileFragment extends Fragment {
         clickChangepass();
         navProfileFragment();
         clickChangeAvatar();
+        getWeddingSwapp();
         return binding.getRoot();
+    }
+
+    private void getWeddingSwapp() {
+       ApiServer apiServer = RetrofitClient.getInstance("").getRetrofit().create(ApiServer.class);
+       Call<List<Album>> call  = apiServer.listAlbumById(id_user);
+       call.enqueue(new Callback<List<Album>>() {
+           @Override
+           public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
+               if(response.isSuccessful()&& response.body() != null){
+                   Log.d("Huy", "onResponse: "+response.body());
+                   List<Album> albumList= response.body();
+                   swappedArrayList = new ArrayList<>();
+                   for(Album album: albumList){
+                       AlbumSwapped swapped = album.getList_sukien_image().get(0);
+                       swappedArrayList.add(swapped);
+                   }
+                   adapter = new AlbumById_Adapter(getActivity(), swappedArrayList);
+                   binding.recycleAlbumSwappedProfile.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                   binding.recycleAlbumSwappedProfile.setAdapter(adapter);
+                   onclickViewDetail();
+               }else {
+                   Log.d("Huy", "Lỗi: ");
+               }
+           }
+
+           @Override
+           public void onFailure(Call<List<Album>> call, Throwable t) {
+               Log.d("Huy", "onFailure: "+t.getMessage());
+           }
+       });
+    }
+    private void onclickViewDetail(){
+        adapter.setOnclickItem(new AlbumById_Adapter.onCickItem() {
+            @Override
+            public void onClick(String id_sk) {
+                Log.d("Huy", "onClick: "+id_sk);
+
+              EditProfileFragmentDirections.ActionAccountFragmentToDetailAlbum action =EditProfileFragmentDirections.actionAccountFragmentToDetailAlbum(id_sk);
+              NavHostFragment.findNavController(EditProfileFragment.this).navigate(action);
+            }
+        });
     }
     private void clickChangeAvatar(){
         binding.btnUploadAvatarAccount.setOnClickListener(v -> {
@@ -336,4 +388,5 @@ public class EditProfileFragment extends Fragment {
             bottom.dismiss();
         }
     }
+
 }

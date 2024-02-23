@@ -42,6 +42,10 @@
             app:destination="@+id/imageSwapped"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"/>
+        <action android:id="@+id/acction_profileFragment_to_SwapVideo"
+            app:destination="@+id/swapvideoFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment android:id="@+id/accountFragment"
         android:name="com.example.fakewedding.fragment.EditProfileFragment"
@@ -55,6 +59,13 @@
             app:destination="@id/profileFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_right"/>
+        <action android:id="@+id/action_AccountFragment_to_DetailAlbum"
+            app:destination="@id/detailSwappedFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left">
+          <argument android:name="id_sk"
+              app:argType="string"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/changePassFragment"
@@ -123,5 +134,15 @@
         app:destination="@+id/imageSwapped"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_right"/>
+        <action android:id="@+id/action_detail_image_SwappedFragment_to_HomeFragment"
+            app:destination="@+id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment android:id="@+id/swapvideoFragment"
+        tools:layout="@layout/fragment_swap_video"
+        android:label="Swap Video"
+        android:name="com.example.fakewedding.fragment.SwapVideoFragment">
+
     </fragment>
 </navigation>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:layout_gravity="center"
+    >
+    <VideoView
+        android:id="@+id/item_temple_video"
+        android:layout_width="220dp"
+        android:layout_height="230dp"
+        android:layout_gravity="center"
+        />
+    <TextView
+        android:id="@+id/item_start_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_swap"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:text="Start"
+        android:textColor="@color/white"
+        android:layout_gravity="center"/>
+</LinearLayout>

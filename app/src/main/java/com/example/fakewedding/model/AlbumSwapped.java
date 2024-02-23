@@ -7,6 +7,8 @@ public class AlbumSwapped {
     String loai_sukien;
     @SerializedName("id_sk_swap_album")
     String id_sk_album;
+    @SerializedName("id_sk_album")
+    String id_sk_album_byid;
     @SerializedName("album")
     String album;
     @SerializedName("id_saved")
@@ -21,6 +23,10 @@ public class AlbumSwapped {
     int id_user;
     @SerializedName("thoigian_sukien")
     String thoigian_sukien;
+
+    public String getId_sk_album_byid() {
+        return id_sk_album_byid;
+    }
 
     public String getThoigian_sukien() {
         return thoigian_sukien;

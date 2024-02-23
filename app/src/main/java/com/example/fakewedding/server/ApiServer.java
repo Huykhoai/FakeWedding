@@ -7,9 +7,11 @@ import com.example.fakewedding.model.DetailUser;
 import com.example.fakewedding.model.ImageUploadNam;
 import com.example.fakewedding.model.ListCategory;
 import com.example.fakewedding.model.ListTemple;
+import com.example.fakewedding.model.ListTempleVideo;
 import com.example.fakewedding.model.Login;
 import com.example.fakewedding.model.Message;
 import com.example.fakewedding.model.SwapEventData;
+import com.example.fakewedding.model.TempleVideo;
 
 import java.util.List;
 
@@ -102,6 +104,12 @@ public interface ApiServer {
             @Query("id_user") int id_user,
             @Query("id_sk") String id_sk
     );
+    @GET(Server.DOMAIN2+"get/list_2_image/id_image_swap")
+    Call<List<Album>> listAlbumById(
+            @Query("id_user") int id_user
+    );
+    @GET("https://databaseswap.mangasocial.online/get/list_video/all_video_wedding_template")
+    Call<ListTempleVideo> getListVideo();
 }
 
 
