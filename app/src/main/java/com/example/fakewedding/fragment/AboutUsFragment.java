@@ -36,7 +36,12 @@ public class AboutUsFragment extends Fragment implements AboutUsAdapter.onClick{
         viewpager();
         viewpager2();
         viewpager3();
+        Back();
         return binding.getRoot();
+    }
+
+    private void Back() {
+        binding.aboutUsMenu.setOnClickListener(v -> getActivity().onBackPressed());
     }
 
     private void viewpager3() {
@@ -48,6 +53,7 @@ public class AboutUsFragment extends Fragment implements AboutUsAdapter.onClick{
         arrayList3.add(new PagerHome6(R.drawable.abu_image20,"2022"));
         home6Viewpaper = new Home6Viewpaper(getActivity(), arrayList2);
         binding.abuViewpager3.setAdapter(home6Viewpaper);
+        binding.abuCircleIndicator3.setViewPager(binding.abuViewpager3);
     }
 
     private void viewpager2() {
@@ -59,6 +65,7 @@ public class AboutUsFragment extends Fragment implements AboutUsAdapter.onClick{
         arrayList2.add(new PagerHome6(R.drawable.abu_image21,"Workplace"));
         home6Viewpaper = new Home6Viewpaper(getActivity(), arrayList2);
         binding.abuViewpager2.setAdapter(home6Viewpaper);
+        binding.abuCircleIndicator2.setViewPager(binding.abuViewpager2);
     }
 
     private void viewpager() {
@@ -70,7 +77,7 @@ public class AboutUsFragment extends Fragment implements AboutUsAdapter.onClick{
           arrayList.add(new PagerAboutUs(R.drawable.abu_image11,"Celebirity Voice Change Parody", "100+ Voice Live & AI Singing","https://apps.apple.com/us/app/mimic-ai-photo-face-animator/id1590841930"));
           adapter = new AboutUsAdapter(getActivity(), arrayList,AboutUsFragment.this);
           binding.abuViewpager.setAdapter(adapter);
-
+        binding.abuCircleIndicator.setViewPager(binding.abuViewpager);
     }
 
     @Override

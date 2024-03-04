@@ -79,9 +79,11 @@
                     android:textSize="15dp"
                     android:textStyle="bold" />
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textLayout_login_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    app:helperTextTextColor="@color/red"
                     android:background="@drawable/bg_btn">
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
@@ -92,32 +94,17 @@
                         android:drawablePadding="10dp"
                         android:id="@+id/edit_email_login"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_email_alert"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="1dp"
-                    android:visibility="gone"
-                    android:text="@string/enter_your_email"
-                    android:textColor="#FF0000"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/edit_email_login"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_pass_login" />
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:passwordToggleEnabled="true"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
+                    app:helperTextTextColor="@color/red"
                     android:background="@drawable/bg_btn"
-                    android:id="@+id/til_pass">
+                    android:id="@+id/textLayout_login_pass">
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:drawableStart="@drawable/ic_pass"
                         android:hint="Password"
                         android:drawablePadding="10dp"
@@ -125,21 +112,6 @@
                         android:inputType="textPassword"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_pass_alert"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="1dp"
-                    android:visibility="gone"
-                    android:text="The password entered is wrong!"
-                    android:textColor="#FF0000"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/edit_pass_login"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_pass_login" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

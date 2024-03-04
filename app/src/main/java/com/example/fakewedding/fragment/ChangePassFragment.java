@@ -107,43 +107,40 @@ public class ChangePassFragment extends Fragment {
     }
     private int validate(String oldpass,String newpass, String confirm){
         if(oldpass.isEmpty()){
-            binding.tvErrorOldpass.setVisibility(View.VISIBLE);
+           binding.textInputLayout1.setHelperText("please don't leave it blank");
             return -1;
         }else {
             if(!oldpass.equals(password)){
-                binding.tvErrorOldpass.setText("Old password is incorrect");
-                binding.tvErrorOldpass.setVisibility(View.VISIBLE);
+                binding.textInputLayout1.setHelperText("Old password is incorrect");
                 return -1;
             }else {
-                binding.tvErrorOldpass.setVisibility(View.INVISIBLE);
+                binding.textInputLayout1.setHelperText("");
             }
-            binding.tvErrorOldpass.setVisibility(View.INVISIBLE);
+            binding.textInputLayout1.setHelperText("");
         }
         if(newpass.isEmpty()){
-            binding.tvErrorNewpass.setVisibility(View.VISIBLE);
+            binding.textInputLayout2.setHelperText("please don't leave it blank");
             return -1;
         }else {
             if(newpass.equals(oldpass)){
-                binding.tvErrorNewpass.setText("The new password cannot be the same as the old password");
-                binding.tvErrorNewpass.setVisibility(View.VISIBLE);
+                binding.textInputLayout2.setHelperText("The new password cannot be the same as the old password");
                 return -1;
             }else {
-                binding.tvErrorNewpass.setVisibility(View.INVISIBLE);
+                binding.textInputLayout2.setHelperText("");
             }
-            binding.tvErrorNewpass.setVisibility(View.INVISIBLE);
+            binding.textInputLayout2.setHelperText("");
         }
         if(confirm.isEmpty()){
-            binding.tvErrorCofirm.setVisibility(View.VISIBLE);
+            binding.textInputLayout3.setHelperText("please don't leave it blank");
             return -1;
         }else {
             if(!confirm.equals(newpass)){
-                binding.tvErrorCofirm.setText("Confirmation password is incorrect");
-                binding.tvErrorCofirm.setVisibility(View.VISIBLE);
+                binding.textInputLayout3.setHelperText("Confirmation password is incorrect");
                 return -1;
             }else {
-                binding.tvErrorCofirm.setVisibility(View.INVISIBLE);
+                binding.textInputLayout3.setHelperText("");
             }
-            binding.tvErrorCofirm.setVisibility(View.INVISIBLE);
+            binding.textInputLayout3.setHelperText("");
         }
         return 1;
     }

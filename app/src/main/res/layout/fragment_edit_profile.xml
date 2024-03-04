@@ -112,14 +112,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/btn_swap"
-                android:paddingStart="20dp"
+                android:paddingStart="15dp"
                 android:paddingTop="8dp"
-                android:paddingEnd="20dp"
+                android:paddingEnd="15dp"
                 android:paddingBottom="8dp"
                 android:text="Upload new avatar +"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.211"
                 app:layout_constraintStart_toEndOf="@+id/avatar_account"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -130,9 +130,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Display name"
+                android:layout_marginStart="20dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.086"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/avatar_account" />
 
@@ -141,105 +140,117 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="11dp"
                 android:src="@drawable/icon_warring"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/appCompatTextView4"
                 app:layout_constraintTop_toBottomOf="@+id/avatar_account" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edit_name_account"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout4"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_btn"
-                android:paddingLeft="10dp"
-                android:text="name"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4" />
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_name_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_btn"
+                    android:paddingLeft="10dp"
+                    android:text="name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/appCompatTextView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
                 android:text="Email"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.079"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_name_account" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/appCompatImageView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="11dp"
                 android:src="@drawable/icon_warring"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/appCompatTextView5"
-                app:layout_constraintTop_toBottomOf="@+id/edit_name_account" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edit_email_account"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout5"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_btn"
-                android:paddingLeft="10dp"
-                android:text="Email"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView5" />
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView5">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_email_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_btn"
+                    android:paddingLeft="10dp"
+                    android:text="Email" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/appCompatTextView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:text="Location"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.079"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_email_account" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/appCompatImageView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="11dp"
                 android:src="@drawable/icon_warring"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/appCompatTextView6"
-                app:layout_constraintTop_toBottomOf="@+id/edit_email_account" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edit_location_account"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout6"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_btn"
-                android:paddingLeft="10dp"
-                android:text="Location"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView6" />
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView6">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_location_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/bg_btn"
+                    android:paddingLeft="10dp"
+                    android:text="Location"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -248,7 +259,7 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_location_account">
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
                 <TextView
                     android:id="@+id/textView23"

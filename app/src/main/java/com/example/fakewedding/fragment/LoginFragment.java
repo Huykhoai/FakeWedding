@@ -80,11 +80,11 @@ public class LoginFragment extends Fragment {
                 if(query.contains("Logined in successfully")){
                     Toast.makeText(getActivity(), "Login Thành công", Toast.LENGTH_SHORT).show();
                    startActivity(new Intent(getActivity(), MainActivity.class));
-                    binding.tilPass.setError("");
+                    binding.textLayoutLoginPass.setHelperText("");
                 }else if(query.contains("Invalid in Password!!")){
-                    binding.tilPass.setError("Invalid in Password!!");
+                    binding.textLayoutLoginPass.setHelperText("Invalid in Password!!");
                 }else {
-                    binding.tilPass.setError("");
+                    binding.textLayoutLoginPass.setHelperText("");
                 }
             }
 
@@ -135,29 +135,21 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean isCompletedInfomation(String email,String pass){
-            if (email.isEmpty()) {
-                binding.tvEmailAlert.setVisibility(View.VISIBLE);
-            } else {
-                binding.tvEmailAlert.setVisibility(View.GONE);
-                return true;
-            }
-
+            if (email.isEmpty()){
+                binding.textLayoutLoginEmail.setHelperText("Please don't leave it blank");
+            } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.textLayoutLoginEmail.setHelperText("Follow the email rule: abc@abc.abc");
+            }else {
+                binding.textLayoutLoginEmail.setHelperText("");
+                    return true;
+                }
             if (pass.isEmpty()) {
-                binding.tvPassAlert.setVisibility(View.VISIBLE);
+                binding.textLayoutLoginPass.setHelperText("please don't leave it blank");
             } else {
-                binding.tvPassAlert.setVisibility(View.GONE);
+                binding.textLayoutLoginPass.setHelperText("");
                 return true;
             }
-        if(isValidEmail(email)&& isValidPassword(pass)){
-            return true;
-        }
         return false;
-    }
-    private boolean isValidEmail(String email) {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-    private boolean isValidPassword(String password) {
-        return password.length() >= 8 ;
     }
     private void remember(String phone,String pass, boolean status){
         SharedPreferences sharedPreferences =getActivity().getSharedPreferences("THONGTIN", Context.MODE_PRIVATE);

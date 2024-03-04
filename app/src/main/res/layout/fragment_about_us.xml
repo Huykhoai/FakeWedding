@@ -173,6 +173,7 @@
                   android:layout_width="wrap_content"
                   android:layout_height="40dp"
                   android:id="@+id/abu_circleIndicator"
+                  app:ci_drawable="@drawable/circle"
                   android:layout_gravity="center"/>
           </LinearLayout>
           <TextView
@@ -225,7 +226,8 @@
                   android:layout_width="wrap_content"
                   android:layout_height="40dp"
                   android:id="@+id/abu_circleIndicator3"
-                  android:layout_gravity="center"/>
+                  android:layout_gravity="center"
+                  app:ci_drawable="@drawable/circle"/>
           </LinearLayout>
           <ImageView
               android:id="@+id/abu_image7"
@@ -322,10 +324,10 @@
 
           <ImageView
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="300dp"
               android:src="@drawable/footer_home"
               app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-              tools:layout_editor_absoluteX="-163dp" />
+              />
       </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
 </LinearLayout>
