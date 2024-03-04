@@ -1,15 +1,19 @@
 package com.example.fakewedding.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.fakewedding.activity.SwapVideoActivity;
 import com.example.fakewedding.adapter.TempleVideoAdapter;
 import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.FragmentSwapVideoBinding;
@@ -35,7 +39,25 @@ public class SwapVideoFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentSwapVideoBinding.inflate(inflater, container, false);
         getData();
+        back();
         return binding.getRoot();
+    }
+
+    private void back() {
+        binding.templeVideoSwapMenu.setOnClickListener(v -> getActivity().onBackPressed());
+    }
+
+    private void onClickStart() {
+        adapter.setOnclickStart(new TempleVideoAdapter.onCickStart() {
+            @Override
+            public void onClick(int id) {
+                Intent intent = new Intent(getActivity(), SwapVideoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id_temple_video", String.valueOf(id));
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getData() {
@@ -53,9 +75,11 @@ public class SwapVideoFragment extends Fragment {
                     for(TempleVideo templeVideo:videoList){
                         arrayList.add(templeVideo);
                     }
-                   adapter = new TempleVideoAdapter(getActivity(), arrayList);
-                    binding.recycleListVideo.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                    adapter = new TempleVideoAdapter(getActivity(), arrayList);
+                    GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+                    binding.recycleListVideo.setLayoutManager(layoutManager);
                     binding.recycleListVideo.setAdapter(adapter);
+                    onClickStart();
                 }
             }
 

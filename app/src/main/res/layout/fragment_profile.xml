@@ -80,6 +80,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/profile_contact_us"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="24dp"
@@ -133,6 +134,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_image_swapped" />
     <TextView
+        android:id="@+id/profile_funny_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Funny Video"
+        android:textSize="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image_swapped_video"/>
+    <TextView
         android:id="@+id/profile_service"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -145,7 +159,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image_swapped_video" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_funny_video" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_logout"

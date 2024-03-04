@@ -57,6 +57,9 @@ public class HomeFragment extends Fragment {
         binding.btnstartSwaping.setOnClickListener(v -> {
            NavHostFragment.findNavController(this).navigate(R.id.action_homeFragment_to_CategoryFragment);
         });
+        binding.btnCreateSwap.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_homeFragment_to_CategoryFragment);
+        });
     }
     private void navProfileFragment(){
         binding.homeMenu.setOnClickListener(v -> {

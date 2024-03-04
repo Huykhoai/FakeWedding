@@ -1,6 +1,7 @@
 package com.example.fakewedding.server;
 
 import com.example.fakewedding.model.Album;
+import com.example.fakewedding.model.AllVideoResponse;
 import com.example.fakewedding.model.ChangeAvatar;
 import com.example.fakewedding.model.DetailAlbum;
 import com.example.fakewedding.model.DetailUser;
@@ -10,8 +11,9 @@ import com.example.fakewedding.model.ListTemple;
 import com.example.fakewedding.model.ListTempleVideo;
 import com.example.fakewedding.model.Login;
 import com.example.fakewedding.model.Message;
+import com.example.fakewedding.model.SukienVideoResponse;
 import com.example.fakewedding.model.SwapEventData;
-import com.example.fakewedding.model.TempleVideo;
+import com.example.fakewedding.model.VideoByIdResponse;
 
 import java.util.List;
 
@@ -110,6 +112,21 @@ public interface ApiServer {
     );
     @GET("https://databaseswap.mangasocial.online/get/list_video/all_video_wedding_template")
     Call<ListTempleVideo> getListVideo();
+    @GET("https://videoswap.mangasocial.online/getdata/genvideo/swap/imagevid/wedding")
+    Call<SukienVideoResponse> SwapVideo(
+            @Header("Authorization") String authorization,
+            @Query("device_them_su_kien") String device_them_su_kien,
+            @Query("ip_them_su_kien") int ip_them_su_kien,
+            @Query("id_user") int id_user,
+            @Query("src_img") String src_img,
+            @Query("src_vid_path") int src_vid_path
+    );
+    @GET("https://databaseswap.mangasocial.online/get/list_video/all_video_wedding_swap")
+    Call<AllVideoResponse> getAllVideoSwapped();
+    @GET("https://databaseswap.mangasocial.online/get/list_video_wedding/id_video_swap")
+    Call<VideoByIdResponse> getVideoById(
+            @Query("id_user") int id_user
+    );
 }
 
 

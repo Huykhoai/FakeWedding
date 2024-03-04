@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fakewedding.R;
+import com.example.fakewedding.model.SwapVideo;
 import com.example.fakewedding.model.TempleVideo;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
@@ -19,17 +20,14 @@ import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 import java.util.ArrayList;
 
-public class TempleVideoAdapter extends RecyclerView.Adapter<TempleVideoAdapter.ViewHolder> {
+public class AllVideoSwappedAdapter extends RecyclerView.Adapter<AllVideoSwappedAdapter.ViewHolder> {
     Context context;
-    ArrayList<TempleVideo> arrayList;
+    ArrayList<SwapVideo> arrayList;
     onCickStart onCickStart;
     private ExoPlayer exoPlayer;
-    public TempleVideoAdapter(Context context, ArrayList<TempleVideo> arrayList) {
+    public AllVideoSwappedAdapter(Context context, ArrayList<SwapVideo> arrayList, onCickStart onCickStart) {
         this.context = context;
         this.arrayList = arrayList;
-
-    }
-    public void setOnclickStart(onCickStart onCickStart){
         this.onCickStart = onCickStart;
     }
     @NonNull
@@ -42,17 +40,18 @@ public class TempleVideoAdapter extends RecyclerView.Adapter<TempleVideoAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-          TempleVideo templeVideo = arrayList.get(position);
-              exoPlayer = new ExoPlayer.Builder(context).build();
-              holder.videoView.setPlayer(exoPlayer);
-              MediaItem mediaItem = MediaItem.fromUri(Uri.parse(templeVideo.getLink_video()));
-              exoPlayer.addMediaItem(mediaItem);
-              exoPlayer.setPlayWhenReady(false); // Đặt playWhenReady thành false để ngăn chặn video tự động phát
+        SwapVideo templeVideo = arrayList.get(position);
+        exoPlayer = new ExoPlayer.Builder(context).build();
+        holder.videoView.setPlayer(exoPlayer);
+        MediaItem mediaItem = MediaItem.fromUri(Uri.parse(templeVideo.getLink_video_da_swap()));
+        exoPlayer.addMediaItem(mediaItem);
+        exoPlayer.setPlayWhenReady(false); // Đặt playWhenReady thành false để ngăn chặn video tự động phát
+        exoPlayer.prepare();
 
-              exoPlayer.prepare();
-              holder.txtStart.setOnClickListener(v -> {
+        holder.txtStart.setText("View Detail");
+        holder.txtStart.setOnClickListener(v -> {
             if(onCickStart!= null){
-                onCickStart.onClick(templeVideo.getId());
+                onCickStart.onClick(templeVideo);
             }
         });
     }
@@ -62,7 +61,7 @@ public class TempleVideoAdapter extends RecyclerView.Adapter<TempleVideoAdapter.
         return arrayList.size();
     }
     public interface onCickStart{
-        void onClick(int id);
+        void onClick(SwapVideo swapVideo);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

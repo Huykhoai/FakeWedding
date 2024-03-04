@@ -33,7 +33,7 @@
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          android:id="@+id/video_swap_menu"/>
+          android:id="@+id/temple_video_swap_menu"/>
    </androidx.constraintlayout.widget.ConstraintLayout>
    <LinearLayout
        android:layout_width="match_parent"
@@ -41,7 +41,6 @@
        android:background="@drawable/top_left_right"
        android:layout_marginStart="5dp"
        android:layout_marginEnd="5dp"
-       android:padding="5dp"
        android:orientation="vertical"
        android:layout_marginTop="20dp">
       <TextView

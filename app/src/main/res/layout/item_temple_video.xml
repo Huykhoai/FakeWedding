@@ -4,14 +4,17 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="10dp"
+    android:layout_margin="2dp"
     android:layout_gravity="center"
     >
-    <VideoView
+    <com.google.android.exoplayer2.ui.StyledPlayerView
         android:id="@+id/item_temple_video"
         android:layout_width="220dp"
         android:layout_height="230dp"
         android:layout_gravity="center"
+        app:hide_on_touch="true"
+        app:show_timeout="1000"
+        app:use_controller="true"
         />
     <TextView
         android:id="@+id/item_start_video"

@@ -54,12 +54,25 @@ public class ProfileFragment extends Fragment {
         navAccountFragment();
         navImageSwapped();
         navSwapVideo();
+        navFunnyVideo();
+        navContactUs();
         Logout();
         loadIdUser();
         getData();
         return binding.getRoot();
     }
+    private void navContactUs(){
+        binding.profileContactUs.setOnClickListener(v -> {
+            NavHostFragment.findNavController(ProfileFragment.this).navigate(R.id.acction_profileFragment_to_ContactUsVideo);
+        });
 
+    }
+    private void navFunnyVideo(){
+        binding.profileFunnyVideo.setOnClickListener(v -> {
+            NavHostFragment.findNavController(ProfileFragment.this).navigate(R.id.acction_profileFragment_to_FunnyVideo);
+        });
+
+    }
     private void navSwapVideo() {
         binding.profileImageSwappedVideo.setOnClickListener(v -> {
             NavHostFragment.findNavController(ProfileFragment.this).navigate(R.id.acction_profileFragment_to_SwapVideo);

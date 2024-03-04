@@ -28,10 +28,18 @@ public class ResultSwapActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         getData();
         getResult();
-        Back();
+        initButton();
+
+    }
+
+    private void initButton() {
         binding.btndownload.setOnClickListener(v -> {
-            DownloadImage.downloadImages(ResultSwapActivity.this,"image",listImage);
+        DownloadImage.downloadImages(ResultSwapActivity.this,"image",listImage);
+    });
+        binding.btnCreateNew.setOnClickListener(v -> {
+            onBackPressed();
         });
+        binding.resultMenu.setOnClickListener(v -> {onBackPressed();});
     }
 
     private void getResult() {
@@ -53,8 +61,5 @@ public class ResultSwapActivity extends AppCompatActivity {
         Log.d("Huy", "getDataResult: "+swapEventInfo.getIdSaved());
         listImage = bundle.getStringArrayList("listimage");
         Log.d("Huy", "listImage: "+listImage.get(0));
-    }
-    private void Back(){
-        binding.resultMenu.setOnClickListener(v -> {onBackPressed();});
     }
 }

@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.AlbumSwapedFragment"
+    tools:context=".fragment.FunnyVideoFragment"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="#F2FDFF">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout7"
+        android:id="@+id/constraintLayout10"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,49 +33,31 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/album_swapped_menu"/>
+            android:id="@+id/all_video_swap_menu"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:background="#F2FDFF"
+        android:background="@drawable/top_left_right"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
-
+        android:layout_marginTop="20dp">
         <TextView
-            android:id="@+id/textview1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Funny Video"
+            android:textSize="25dp"
+            android:textStyle="bold"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:text="Timeline"
-            android:textSize="24dp"
-            android:textStyle="bold" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycleView_album_swapped"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp" />
-
-            <TextView
-                android:id="@+id/txtThongbao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Empty list"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-        </FrameLayout>
-
+            android:layout_marginTop="10dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycle_AllVideo"
+            android:layout_gravity="center"/>
     </LinearLayout>
+
 
 </LinearLayout>

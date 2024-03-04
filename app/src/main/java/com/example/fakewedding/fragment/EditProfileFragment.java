@@ -34,9 +34,11 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.fakewedding.R;
+import com.example.fakewedding.activity.ResultVideoActivity;
 import com.example.fakewedding.activity.UploadActivity;
 import com.example.fakewedding.adapter.AlbumById_Adapter;
 import com.example.fakewedding.adapter.Album_Swapped_adapter;
+import com.example.fakewedding.adapter.AllVideoSwappedAdapter;
 import com.example.fakewedding.api.RetrofitClient;
 import com.example.fakewedding.databinding.DialogBottomBinding;
 import com.example.fakewedding.databinding.FragmentEditProfileBinding;
@@ -45,6 +47,8 @@ import com.example.fakewedding.model.Album;
 import com.example.fakewedding.model.AlbumSwapped;
 import com.example.fakewedding.model.ChangeAvatar;
 import com.example.fakewedding.model.DetailUser;
+import com.example.fakewedding.model.SwapVideo;
+import com.example.fakewedding.model.VideoByIdResponse;
 import com.example.fakewedding.server.ApiServer;
 import com.example.fakewedding.server.Server;
 import com.example.fakewedding.until.RealPathUtil;
@@ -67,7 +71,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class EditProfileFragment extends Fragment {
+public class EditProfileFragment extends Fragment implements AllVideoSwappedAdapter.onCickStart{
    int id_user;
     DialogBottomBinding bottomBinding;
    FragmentEditProfileBinding binding;
@@ -96,7 +100,29 @@ public class EditProfileFragment extends Fragment {
         navProfileFragment();
         clickChangeAvatar();
         getWeddingSwapp();
+        getFunnyVideo();
         return binding.getRoot();
+    }
+
+    private void getFunnyVideo() {
+      ApiServer apiServer = RetrofitClient.getInstance("").getRetrofit().create(ApiServer.class);
+      Call<VideoByIdResponse> call = apiServer.getVideoById(id_user);
+      call.enqueue(new Callback<VideoByIdResponse>() {
+          @Override
+          public void onResponse(Call<VideoByIdResponse> call, Response<VideoByIdResponse> response) {
+              if(response.isSuccessful()&& response.body() != null){
+                  ArrayList<SwapVideo> arrayList = response.body().getArrayList();
+                  AllVideoSwappedAdapter adapter1 = new AllVideoSwappedAdapter(getActivity(), arrayList, EditProfileFragment.this);
+                  binding.recycleVideoSwappedProfile.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                  binding.recycleVideoSwappedProfile.setAdapter(adapter1);
+              }
+          }
+
+          @Override
+          public void onFailure(Call<VideoByIdResponse> call, Throwable t) {
+
+          }
+      });
     }
 
     private void getWeddingSwapp() {
@@ -133,7 +159,6 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(String id_sk) {
                 Log.d("Huy", "onClick: "+id_sk);
-
               EditProfileFragmentDirections.ActionAccountFragmentToDetailAlbum action =EditProfileFragmentDirections.actionAccountFragmentToDetailAlbum(id_sk);
               NavHostFragment.findNavController(EditProfileFragment.this).navigate(action);
             }
@@ -389,4 +414,12 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onClick(SwapVideo swapVideo) {
+        Intent intent = new Intent(getActivity(), ResultVideoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("sukienVideo",swapVideo);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

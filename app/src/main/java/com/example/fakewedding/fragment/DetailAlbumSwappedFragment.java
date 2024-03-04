@@ -47,9 +47,7 @@ public class DetailAlbumSwappedFragment extends Fragment {
     }
 
     private void navAlbumSwapped() {
-       binding.detailAlbumSwappedMenu.setOnClickListener(v -> {
-       NavHostFragment.findNavController(DetailAlbumSwappedFragment.this).navigate(R.id.action_detail_image_SwappedFragment_to_HomeFragment);
-      });
+       binding.detailAlbumSwappedMenu.setOnClickListener(v -> {getActivity().onBackPressed();});
     }
 
     private void loadIdUser() {

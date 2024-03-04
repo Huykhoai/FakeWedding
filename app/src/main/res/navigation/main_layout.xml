@@ -46,6 +46,14 @@
             app:destination="@+id/swapvideoFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"/>
+        <action android:id="@+id/acction_profileFragment_to_FunnyVideo"
+            app:destination="@+id/funnyvideoFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action android:id="@+id/acction_profileFragment_to_ContactUsVideo"
+            app:destination="@+id/contactUsFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment android:id="@+id/accountFragment"
         android:name="com.example.fakewedding.fragment.EditProfileFragment"
@@ -143,6 +151,15 @@
         tools:layout="@layout/fragment_swap_video"
         android:label="Swap Video"
         android:name="com.example.fakewedding.fragment.SwapVideoFragment">
-
+    </fragment>
+    <fragment android:id="@+id/funnyvideoFragment"
+        tools:layout="@layout/fragment_funny_video"
+        android:label="Funny Video"
+        android:name="com.example.fakewedding.fragment.FunnyVideoFragment">
+    </fragment>
+    <fragment android:id="@+id/contactUsFragment"
+        tools:layout="@layout/fragment_about_us"
+        android:label="About Us"
+        android:name="com.example.fakewedding.fragment.AboutUsFragment">
     </fragment>
 </navigation>

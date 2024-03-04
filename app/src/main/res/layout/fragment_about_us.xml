@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.AboutUsFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/logo_home"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_x2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/about_us_menu"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/constraintLayout7"
+          android:padding="10dp">
+
+          <androidx.appcompat.widget.AppCompatImageView
+              android:id="@+id/appCompatImageView21"
+              android:layout_width="wrap_content"
+              android:layout_height="350dp"
+              android:src="@drawable/abu_imag1"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
+
+          <TextView
+              android:id="@+id/textView9"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="20dp"
+              android:text="THINKDIFF AI - A SOFTWARE PRODUCTS COMPANY"
+              android:textColor="#16B6D4"
+              android:textSize="20dp"
+              android:textStyle="bold"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/appCompatImageView21" />
+
+          <TextView
+              android:id="@+id/textView10"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Specializing in artificial intelligence applications"
+              android:textSize="25dp"
+              android:textStyle="bold"
+              android:layout_marginTop="10dp"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+          <TextView
+              android:id="@+id/textView11"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:text="THE POWER OF CREATIVITY"
+              android:textColor="#16B6D4"
+              android:textSize="20dp"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textView10" />
+          <TextView
+              android:id="@+id/textView12"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:text="We develop a large number of small, fast products for short jobs, such as automatic facial makeup without wasting time, automatically compose interviews, automatically find cheap airline tickets, automatically find sale off orders, automatically find customers who need to rent a house, automatically find customers to sell houses, automatically look up, automatically find and sell houses. customer inquiries. Our company has 200 employees in 3 different locations, the headquarters in Louis city is the place where training and human resource development is combined, the sales department is located at 69 Vạn Phúc. Congratulations for your interest in our company and for taking the time to read this article. Thank you."
+              android:textSize="18dp"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textView11" />
+          <TextView
+              android:id="@+id/textView13"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="20dp"
+              android:text="We Provide Different Services And Features For Your Agency The Power Of Creativity"
+              android:textColor="#16B6D4"
+              android:textSize="20dp"
+              android:textStyle="bold"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textView12"/>
+          <androidx.appcompat.widget.AppCompatImageView
+              android:id="@+id/abu_image2"
+              android:layout_width="match_parent"
+              android:layout_height="250dp"
+              android:layout_marginTop="10dp"
+              android:src="@drawable/abu_image2"
+              app:layout_constraintTop_toBottomOf="@+id/textView13"/>
+
+          <ImageView
+              android:id="@+id/abu_image3"
+              android:layout_width="300dp"
+              android:layout_height="300dp"
+              android:src="@drawable/abu_image3"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/abu_image2" />
+          <ImageView
+              android:id="@+id/abu_image4"
+              android:layout_width="300dp"
+              android:layout_height="300dp"
+              android:src="@drawable/abu_image4"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/abu_image3" />
+          <ImageView
+              android:id="@+id/abu_image5"
+              android:layout_width="300dp"
+              android:layout_height="300dp"
+              android:src="@drawable/abu_image5"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/abu_image4" />
+          <ImageView
+              android:id="@+id/abu_image6"
+              android:layout_width="300dp"
+              android:layout_height="300dp"
+              android:src="@drawable/abu_image6"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/abu_image5" />
+          <LinearLayout
+              android:id="@+id/linearLayout4"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:background="#F2FDFF"
+              android:layout_marginBottom="20dp"
+              app:layout_constraintTop_toBottomOf="@+id/abu_image6">
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Discover Our Projects And Products"
+             android:textSize="25dp"
+             android:textStyle="bold"
+             android:gravity="center"
+             android:layout_marginTop="10dp"/>
+              <androidx.viewpager.widget.ViewPager
+                  android:layout_width="match_parent"
+                  android:layout_height="400dp"
+                  android:id="@+id/abu_viewpager"/>
+              <me.relex.circleindicator.CircleIndicator
+                  android:layout_width="wrap_content"
+                  android:layout_height="40dp"
+                  android:id="@+id/abu_circleIndicator"
+                  android:layout_gravity="center"/>
+          </LinearLayout>
+          <TextView
+              android:id="@+id/textView14"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Discover Our Workplace And Members"
+              android:textStyle="bold"
+              android:textSize="25dp"
+              android:gravity="center"
+              app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+              android:layout_marginTop="10dp"/>
+
+          <androidx.viewpager.widget.ViewPager
+              android:id="@+id/abu_viewpager2"
+              android:layout_width="match_parent"
+              android:layout_height="300dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/textView14" />
+          <me.relex.circleindicator.CircleIndicator
+              android:layout_width="wrap_content"
+              android:layout_height="40dp"
+              android:id="@+id/abu_circleIndicator2"
+              app:layout_constraintTop_toBottomOf="@+id/abu_viewpager2"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:ci_drawable="@drawable/circle"/>
+          <LinearLayout
+              android:id="@+id/linearLayout5"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:background="#F2FDFF"
+              android:layout_marginBottom="20dp"
+              app:layout_constraintTop_toBottomOf="@+id/abu_circleIndicator2">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Discover Our Extracurricular Activities And Development Process"
+                  android:textSize="25dp"
+                  android:textStyle="bold"
+                  android:gravity="center"
+                  android:layout_marginTop="10dp"/>
+              <androidx.viewpager.widget.ViewPager
+                  android:layout_width="match_parent"
+                  android:layout_height="300dp"
+                  android:id="@+id/abu_viewpager3"/>
+              <me.relex.circleindicator.CircleIndicator
+                  android:layout_width="wrap_content"
+                  android:layout_height="40dp"
+                  android:id="@+id/abu_circleIndicator3"
+                  android:layout_gravity="center"/>
+          </LinearLayout>
+          <ImageView
+              android:id="@+id/abu_image7"
+              android:layout_width="match_parent"
+              android:layout_height="300dp"
+              android:src="@drawable/abu_image22"
+              app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+              android:layout_marginTop="20dp"/>
+          <ImageView
+              android:id="@+id/abu_image8"
+              android:layout_width="match_parent"
+              android:layout_height="300dp"
+              android:src="@drawable/abu_image23"
+              app:layout_constraintTop_toBottomOf="@+id/abu_image7"
+              android:layout_marginTop="20dp"/>
+          <ImageView
+              android:id="@+id/abu_image9"
+              android:layout_width="match_parent"
+              android:layout_height="300dp"
+              android:src="@drawable/abu_image24"
+              app:layout_constraintTop_toBottomOf="@+id/abu_image8"
+              android:layout_marginTop="20dp"/>
+
+          <LinearLayout
+              android:id="@+id/linearLayout6"
+              android:layout_width="match_parent"
+              android:layout_height="100dp"
+              android:background="#F2FDFF"
+              android:orientation="horizontal"
+              android:weightSum="3"
+              android:layout_marginTop="10dp"
+              app:layout_constraintTop_toBottomOf="@+id/abu_image9">
+          <LinearLayout
+              android:layout_width="0dp"
+              android:layout_height="100dp"
+              android:layout_weight="1"
+              android:gravity="center"
+              android:orientation="vertical">
+              <ImageView
+                  android:layout_width="30dp"
+                  android:layout_height="30dp"
+                  android:src="@drawable/baseline_call_24"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent" />
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="0582.296.888"
+                  android:textSize="13dp"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  />
+          </LinearLayout>
+              <LinearLayout
+                  android:layout_width="0dp"
+                  android:layout_height="100dp"
+                  android:layout_weight="1"
+                  android:gravity="center"
+                  android:orientation="vertical">
+                  <ImageView
+                      android:layout_width="30dp"
+                      android:layout_height="30dp"
+                      android:src="@drawable/icon_email"
+                      />
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="hr@thinkdiff.us"
+                      android:textSize="13dp"
+                       />
+              </LinearLayout>
+              <LinearLayout
+                  android:layout_width="0dp"
+                  android:layout_height="100dp"
+                  android:layout_weight="1"
+                  android:gravity="center"
+                  android:orientation="vertical">
+                  <ImageView
+                      android:layout_width="30dp"
+                      android:layout_height="30dp"
+                      android:src="@drawable/baseline_location_on_24"
+                    />
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Số 30 Đường Louis 7 Đại Mỗ,Nam Từ Liêm, Hà Nội"
+                      android:textSize="13dp"
+                   />
+              </LinearLayout>
+          </LinearLayout>
+
+          <ImageView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:src="@drawable/footer_home"
+              app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+              tools:layout_editor_absoluteX="-163dp" />
+      </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
+</LinearLayout>

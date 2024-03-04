@@ -100,8 +100,7 @@ public class SwapingActivity extends AppCompatActivity {
         initListener();
     }
 
-    private Dialog
-    DialogUpload(){
+    private Dialog DialogUpload(){
        Dialog dialog = new Dialog(SwapingActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_progress_upload);
@@ -273,6 +272,7 @@ public class SwapingActivity extends AppCompatActivity {
                 }
             }
         });
+        binding.btnSwappedMenu.setOnClickListener(v -> onBackPressed());
     }
     private void swapImage(){
         ApiServer apiServer = RetrofitClient.getInstance("").getRetrofit().create(ApiServer.class);
