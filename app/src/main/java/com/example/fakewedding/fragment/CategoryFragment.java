@@ -43,7 +43,7 @@ public class CategoryFragment extends Fragment {
         return binding.getRoot();
     }
     private void getData(){
-        ApiServer apiServer = RetrofitClient.getInstance("").getRetrofit().create(ApiServer.class);
+        ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
         Call<ListCategory> call = apiServer.getCategory();
         call.enqueue(new Callback<ListCategory>() {
             @Override

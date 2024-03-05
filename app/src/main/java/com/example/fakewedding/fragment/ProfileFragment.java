@@ -1,5 +1,6 @@
 package com.example.fakewedding.fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -117,6 +118,10 @@ public class ProfileFragment extends Fragment {
             myOwnDialogFragment.setListener(new MyOwnDialogFragment.MyOwnDialogListener() {
                 @Override
                 public void OnConfirm() {
+                    SharedPreferences preferences = getContext().getSharedPreferences("isLoginStatus", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("isLogin", false);
+                    editor.apply();
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                 }
             });

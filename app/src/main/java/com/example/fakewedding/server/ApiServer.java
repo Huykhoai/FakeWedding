@@ -82,7 +82,7 @@ public interface ApiServer {
             @Path("page") long id,
             @Query("type") String type
     );
-    @GET(Server.DOMAIN2+"get/categories_wedding")
+    @GET("get/categories_wedding")
     Call<ListCategory> getCategory();
     @GET("https://databaseswap.mangasocial.online/get/list_image_wedding/1")
     Call<ListTemple> getListTemple(

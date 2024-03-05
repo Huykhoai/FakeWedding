@@ -1,5 +1,7 @@
 package com.example.fakewedding.fragment;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.fakewedding.R;
+import com.example.fakewedding.activity.LoginActivity;
 import com.example.fakewedding.activity.MainActivity;
 import com.example.fakewedding.api.QueryValueCallBack;
 import com.example.fakewedding.api.RetrofitClient;
@@ -46,15 +49,27 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        checkLogin();
         btnRegister();
         BtnLogin();
         navForgotFragment();
-        SharedPreferences spf = getActivity().getSharedPreferences("THONGTIN", Context.MODE_PRIVATE);
-        binding.editEmailLogin.setText(spf.getString("EMAIL", ""));
-        binding.editPassLogin.setText(spf.getString("PASSWORD", ""));
-        binding.remember.setChecked(spf.getBoolean("REMEMBER",false));
+
         return view;
     }
+
+    private void checkLogin() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("isLoginStatus", Context.MODE_PRIVATE);
+        boolean isLogin = sharedPreferences.getBoolean("isLogin", false);
+        Intent intent;
+        if (isLogin) {
+            intent = new Intent(getActivity(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            getActivity().finish(); // Kết thúc hoạt động hiện tại sau khi chuyển đổi
+        }
+
+    }
+
     private void navForgotFragment(){
         binding.forgotpass.setOnClickListener(v -> {
             NavController nav = NavHostFragment.findNavController(this);
@@ -69,7 +84,7 @@ public class LoginFragment extends Fragment {
 
                     if (isCompletedInfomation(email, password)) {
                         checkAccountRegister(email, password);
-                        remember(email, password, binding.remember.isChecked());
+                        remember(email, password, true);
                 }
             });
     }
@@ -78,8 +93,11 @@ public class LoginFragment extends Fragment {
             @Override
             public void onQueryValueReceived(String query) {
                 if(query.contains("Logined in successfully")){
-                    Toast.makeText(getActivity(), "Login Thành công", Toast.LENGTH_SHORT).show();
-                   startActivity(new Intent(getActivity(), MainActivity.class));
+                    SharedPreferences preferences = getActivity().getSharedPreferences("isLoginStatus", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("isLogin", true);
+                    editor.apply();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
                     binding.textLayoutLoginPass.setHelperText("");
                 }else if(query.contains("Invalid in Password!!")){
                     binding.textLayoutLoginPass.setHelperText("Invalid in Password!!");

@@ -167,6 +167,9 @@ public class SwapingActivity extends AppCompatActivity {
                         myDialog.setContent(resultDetech);
                         myDialog.setContentButton("OK");
                         myDialog.show();
+                        dialogUpload.dismiss();
+                        binding.btnswap2.setEnabled(true);
+                        binding.btnswap1.setEnabled(true);
                     } else {
                         if (!checkClickSetImageMale) {
                            binding.imageswap2.setImageBitmap(bitmap);
