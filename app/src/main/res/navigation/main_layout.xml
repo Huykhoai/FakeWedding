@@ -6,7 +6,7 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.fakewedding.fragment.HomeFragment"
+        android:name="com.app.fakewedding.fragment.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home"
         >
@@ -27,7 +27,7 @@
     </fragment>
 
     <fragment android:id="@+id/profileFragment"
-        android:name="com.example.fakewedding.fragment.ProfileFragment"
+        android:name="com.app.fakewedding.fragment.ProfileFragment"
         android:label="Profile Fragment"
         tools:layout="@layout/fragment_profile">
         <action android:id="@+id/actiont_profileFragment_to_homeFragmen"
@@ -56,7 +56,7 @@
             app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment android:id="@+id/accountFragment"
-        android:name="com.example.fakewedding.fragment.EditProfileFragment"
+        android:name="com.app.fakewedding.fragment.EditProfileFragment"
         tools:layout="@layout/fragment_edit_profile"
         android:label="Account Fragment">
         <action android:id="@+id/action_AccountFragment_to_ChangePass"
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/changePassFragment"
-        android:name="com.example.fakewedding.fragment.ChangePassFragment"
+        android:name="com.app.fakewedding.fragment.ChangePassFragment"
         android:label="Change pass"
         tools:layout="@layout/fragment_change_pass"
         >
@@ -88,7 +88,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.fakewedding.fragment.CategoryFragment"
+        android:name="com.app.fakewedding.fragment.CategoryFragment"
         tools:layout="@layout/fragment_category"
         android:label="Category Fragment">
       <action android:id="@+id/action_categoryFragment_to_templeFragment"
@@ -107,7 +107,7 @@
     </fragment>
     <fragment
         android:id="@+id/templeFragment"
-        android:name="com.example.fakewedding.fragment.TempleFragment"
+        android:name="com.app.fakewedding.fragment.TempleFragment"
         tools:layout="@layout/fragment_temple"
         android:label="Temple Fragment">
         <action android:id="@+id/action_templeFragment_to_categoryFragment"
@@ -118,7 +118,7 @@
     </fragment>
     <fragment
         android:id="@+id/imageSwapped"
-        android:name="com.example.fakewedding.fragment.AlbumSwapedFragment"
+        android:name="com.app.fakewedding.fragment.AlbumSwapedFragment"
         android:label="Image Swapped"
         tools:layout="@layout/fragment_album_swaped">
         <action android:id="@+id/action_ImageswappedFragment_to_DetailSwappedFragment"
@@ -135,7 +135,7 @@
 
     </fragment>
     <fragment android:id="@+id/detailSwappedFragment"
-        android:name="com.example.fakewedding.fragment.DetailAlbumSwappedFragment"
+        android:name="com.app.fakewedding.fragment.DetailAlbumSwappedFragment"
         tools:layout="@layout/fragment_detail_album_swapped"
         android:label="Detail Swapped">
     <action android:id="@+id/action_detail_image_SwappedFragment_to_ImageSwapped"
@@ -150,16 +150,16 @@
     <fragment android:id="@+id/swapvideoFragment"
         tools:layout="@layout/fragment_swap_video"
         android:label="Swap Video"
-        android:name="com.example.fakewedding.fragment.SwapVideoFragment">
+        android:name="com.app.fakewedding.fragment.SwapVideoFragment">
     </fragment>
     <fragment android:id="@+id/funnyvideoFragment"
         tools:layout="@layout/fragment_funny_video"
         android:label="Funny Video"
-        android:name="com.example.fakewedding.fragment.FunnyVideoFragment">
+        android:name="com.app.fakewedding.fragment.FunnyVideoFragment">
     </fragment>
     <fragment android:id="@+id/contactUsFragment"
         tools:layout="@layout/fragment_about_us"
         android:label="About Us"
-        android:name="com.example.fakewedding.fragment.AboutUsFragment">
+        android:name="com.app.fakewedding.fragment.AboutUsFragment">
     </fragment>
 </navigation>
