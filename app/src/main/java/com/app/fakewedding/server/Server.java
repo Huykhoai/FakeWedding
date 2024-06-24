@@ -1,6 +1,7 @@
 package com.app.fakewedding.server;
 
 public interface Server {
+    String UrlAds = "https://futurelove.online/";
     String URI = "https://metatechvn.store/";
     String DOMAIN2 = "https://databaseswap.mangasocial.online/";
     String DOMAIN3 ="https://sakaivn.online/";

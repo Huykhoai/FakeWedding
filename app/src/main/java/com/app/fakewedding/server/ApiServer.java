@@ -2,9 +2,11 @@ package com.app.fakewedding.server;
 
 import com.app.fakewedding.model.Album;
 import com.app.fakewedding.model.AllVideoResponse;
+import com.app.fakewedding.model.ApiGlossary;
 import com.app.fakewedding.model.ChangeAvatar;
 import com.app.fakewedding.model.DetailAlbum;
 import com.app.fakewedding.model.DetailUser;
+import com.app.fakewedding.model.Glossary;
 import com.app.fakewedding.model.ImageUploadNam;
 import com.app.fakewedding.model.ListCategory;
 import com.app.fakewedding.model.ListTemple;
@@ -127,6 +129,8 @@ public interface ApiServer {
     Call<VideoByIdResponse> getVideoById(
             @Query("id_user") int id_user
     );
+    @GET("image/futurelove-android.json")
+    Call<ApiGlossary> getGlossary();
 }
 
 

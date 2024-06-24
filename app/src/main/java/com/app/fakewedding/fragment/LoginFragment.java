@@ -17,9 +17,12 @@ import android.view.ViewGroup;
 
 import com.app.fakewedding.R;
 import com.app.fakewedding.activity.MainActivity;
+import com.app.fakewedding.activity.WedViewActivity;
 import com.app.fakewedding.api.QueryValueCallBack;
 import com.app.fakewedding.api.RetrofitClient;
 import com.app.fakewedding.databinding.FragmentLoginBinding;
+import com.app.fakewedding.model.ApiGlossary;
+import com.app.fakewedding.model.Glossary;
 import com.app.fakewedding.model.Login;
 import com.app.fakewedding.server.ApiServer;
 import com.app.fakewedding.server.Server;
@@ -31,6 +34,7 @@ import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding ;
+
 
     public LoginFragment() {
         // Required empty public constructor
