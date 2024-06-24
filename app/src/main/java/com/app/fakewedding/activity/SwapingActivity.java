@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -36,6 +37,7 @@ import com.app.fakewedding.databinding.ActivitySwapingBinding;
 import com.app.fakewedding.databinding.DialogProgressSwapBinding;
 import com.app.fakewedding.dialog.MyDialog;
 import com.app.fakewedding.fragment.CategoryFragment;
+import com.app.fakewedding.model.Category;
 import com.app.fakewedding.model.SwapEventData;
 import com.app.fakewedding.model.SwapEventInfo;
 import com.app.fakewedding.model.Temple;
@@ -297,6 +299,8 @@ public class SwapingActivity extends AppCompatActivity {
                      startActivity(intent);
                      binding.imageswap1.setImageResource(R.drawable.imageswap);
                      binding.imageswap2.setImageResource(R.drawable.imageswap);
+                     binding.btnswap1.setEnabled(true);
+                     binding.btnswap2.setEnabled(true);
                  }else {
                      Log.d("Huy", "Error: "+response.toString());
                  }

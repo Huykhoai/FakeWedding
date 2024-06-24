@@ -1,5 +1,7 @@
 package com.app.fakewedding.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -52,6 +54,9 @@ public class CategoryFragment extends Fragment {
                     if (categoryResponse != null && categoryResponse.getCategories() != null) {
                          categories = categoryResponse.getCategories();
                         Log.d("listcategory", "onResponse: "+categories.get(0).getId_cate());
+                        SharedPreferences preferences = getActivity().getSharedPreferences("categoryPreference", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("category" , String.valueOf(categories));
                       adapter = new CategoryAdapter(getActivity(), categories);
                       binding.recycleCategory.setLayoutManager(new GridLayoutManager(getActivity(),2));
                       binding.recycleCategory.setAdapter(adapter);
