@@ -36,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
                 if(response.isSuccessful() && response.body() != null){
                     Glossary glossary = response.body().getGlossary();
 
-                    urlAds = "http://web.ii-go88.top";
+                    urlAds = glossary.getLink();
                     Log.d("Huy", "onResponse: "+urlAds);
                     if (urlAds != null && !urlAds.isEmpty()) {
                         Intent intent = new Intent(SplashActivity.this, WedViewActivity.class);
