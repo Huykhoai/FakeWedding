@@ -5,7 +5,7 @@
     android:id="@+id/login_layout_nav"
     app:startDestination="@id/loginfragment">
     <fragment android:id="@+id/loginfragment"
-        android:name="com.example.fakewedding.fragment.LoginFragment"
+        android:name="com.app.fakewedding.fragment.LoginFragment"
         android:label="@string/login"
         tools:layout="@layout/fragment_login">
         <action android:id="@+id/action_loginFragment_to_resgisterFragment"
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.fakewedding.fragment.RegisterFragment"
+        android:name="com.app.fakewedding.fragment.RegisterFragment"
         android:label="fragment_logout"
         tools:layout="@layout/fragment_register">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotFragment"
-        android:name="com.example.fakewedding.fragment.ForgotPassFragment"
+        android:name="com.app.fakewedding.fragment.ForgotPassFragment"
         android:label="fragment_forgot"
         tools:layout="@layout/fragment_forgot_pass">
         <action

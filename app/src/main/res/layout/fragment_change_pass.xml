@@ -97,35 +97,27 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/appCompatTextView4"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edit_old_pass"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_btn"
-        android:paddingLeft="10dp"
-        android:hint="Old pass"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4" />
-
-    <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Old password is empty"
-        android:visibility="gone"
-        android:textColor="#FF00"
-        android:id="@+id/tv_error_oldpass"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_old_pass" />
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        app:boxStrokeColor="@color/black"
+        app:helperTextTextColor="@color/red"
+        app:hintEnabled="false"
+        app:hintTextColor="@color/black"
+        app:passwordToggleEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_old_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn"
+            android:hint="Old Password"
+            android:inputType="textPassword"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView5"
@@ -137,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_old_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/appCompatImageView19"
@@ -149,35 +141,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/appCompatTextView5"
-        app:layout_constraintTop_toBottomOf="@+id/edit_old_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edit_new_pass"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_btn"
-        android:paddingLeft="10dp"
-        android:hint="New password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView5" />
-
-    <TextView
-        android:id="@+id/tv_error_newpass"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New password is empty"
-        android:textColor="#FF00"
-        android:visibility="gone"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintTop_toBottomOf="@+id/edit_new_pass" />
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        app:boxStrokeColor="@color/black"
+        app:helperTextTextColor="@color/red"
+        app:hintEnabled="false"
+        app:hintTextColor="@color/black"
+        app:passwordToggleEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView5">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_new_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn"
+            android:hint="New Password"
+            android:inputType="textPassword"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView6"
@@ -189,7 +175,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_new_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/appCompatImageView20"
@@ -201,34 +187,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/appCompatTextView6"
-        app:layout_constraintTop_toBottomOf="@+id/edit_new_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edit_cofirm_password"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_btn"
-        android:paddingLeft="10dp"
-        android:hint="Confirm password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView6" />
-    <TextView
-        android:id="@+id/tv_error_cofirm"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cofirm password is empty"
-        android:textColor="#FF00"
-        android:visibility="gone"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintTop_toBottomOf="@+id/edit_cofirm_password" />
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        app:boxStrokeColor="@color/black"
+        app:helperTextTextColor="@color/red"
+        app:hintEnabled="false"
+        app:hintTextColor="@color/black"
+        app:passwordToggleEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView6">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_cofirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_update_password"
         android:layout_width="match_parent"

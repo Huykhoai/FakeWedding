@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_menu"
+            android:src="@drawable/ic_x2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -111,12 +111,15 @@
             android:background="@drawable/btn_swap"
             android:layout_marginLeft="50dp"/>
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
+        android:id="@+id/recycle_result"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/linnerlayout2"
-        android:id="@+id/recycle_result"/>
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linnerlayout2" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btndownload"
@@ -126,10 +129,9 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="Download"
+        android:layout_marginLeft="30dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
-        app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -139,10 +141,10 @@
         android:background="@drawable/btn_swap"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
+        android:layout_marginRight="30dp"
         android:text="Share"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
-        app:layout_constraintHorizontal_bias="0.816"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

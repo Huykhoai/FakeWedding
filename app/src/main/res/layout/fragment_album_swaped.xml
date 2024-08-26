@@ -35,39 +35,45 @@
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/album_swapped_menu"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_marginTop="20dp"
         android:background="#F2FDFF"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
         <TextView
             android:id="@+id/textview1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Image Swapped"
+            android:text="Timeline"
             android:textSize="24dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+            android:textStyle="bold" />
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:id="@+id/recycleView_album_swapped"/>
-            <TextView
+                android:id="@+id/recycleView_album_swapped"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Empty list"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp" />
+
+            <TextView
                 android:id="@+id/txtThongbao"
-                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Empty list"
                 android:textSize="30dp"
-                android:visibility="gone"
-                android:layout_gravity="center"/>
+                android:textStyle="bold"
+                android:visibility="gone" />
         </FrameLayout>
 
     </LinearLayout>
