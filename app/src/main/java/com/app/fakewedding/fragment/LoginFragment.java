@@ -14,6 +14,7 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.app.fakewedding.R;
 import com.app.fakewedding.activity.MainActivity;
@@ -26,6 +27,8 @@ import com.app.fakewedding.model.Glossary;
 import com.app.fakewedding.model.Login;
 import com.app.fakewedding.server.ApiServer;
 import com.app.fakewedding.server.Server;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -132,6 +135,13 @@ public class LoginFragment extends Fragment {
                     edit.putString("password",binding.editPassLogin.getText().toString());
                     edit.putString("token", token);
                     edit.apply();
+                }else{
+                    try {
+                        String error = response.errorBody().string();
+                        Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
 

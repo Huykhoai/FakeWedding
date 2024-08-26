@@ -206,7 +206,7 @@ public class RegisterFragment extends Fragment {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
     private boolean isValidatePassword(String pass){
-        return pass.length()>=8 && !containSpecialCharacters(pass);
+        return pass.length()>=8 && containSpecialCharacters(pass);
     }
     private boolean isValidateConfirm(String confirm,String password){
         if(confirm.equals(password)){

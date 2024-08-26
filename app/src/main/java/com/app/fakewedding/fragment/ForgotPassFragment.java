@@ -50,14 +50,13 @@ public class ForgotPassFragment extends Fragment {
 
     private void ResetPass() {
         binding.btnSendForgot.setOnClickListener(v -> {
-            String email = binding.editForgotpass.getText().toString();
             ApiServer apiServer = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiServer.class);
-            Call<Message> call = apiServer.sendData(email);
+            Call<Message> call = apiServer.sendData(binding.editForgotpass.getText().toString());
             call.enqueue(new Callback<Message>() {
                 @Override
                 public void onResponse(Call<Message> call, Response<Message> response) {
                        myDialog = getDialog();
-                    if(response.isSuccessful()){
+                    if(response.isSuccessful() && response.body() != null){
                         Message result = response.body();
                         myDialog.setTitle("RESET SUCCESS");
                         myDialog.setContent(result.getMessage());

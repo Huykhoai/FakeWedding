@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.app.fakewedding.R;
 import com.app.fakewedding.api.RetrofitClient;
@@ -27,6 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ads();
     }
+
     private void ads(){
         ApiServer apiServer = RetrofitClient.getInstance(Server.UrlAds).getRetrofit().create(ApiServer.class);
         Call<ApiGlossary> call = apiServer.getGlossary();

@@ -1,22 +1,30 @@
 package com.app.fakewedding.model;
 
 
-public class Login {
-    private int id_user, count_comment, count_sukien, count_view;
-    private String device_register, email, ip_register, link_avatar, user_name, token;
+import com.google.gson.annotations.SerializedName;
 
-    public Login(int id_user, int count_comment, int count_sukien, int count_view, String device_register, String email, String ip_register, String link_avatar, String user_name) {
-        this.id_user = id_user;
-        this.count_comment = count_comment;
-        this.count_sukien = count_sukien;
-        this.count_view = count_view;
-        this.device_register = device_register;
-        this.email = email;
-        this.ip_register = ip_register;
-        this.link_avatar = link_avatar;
-        this.user_name = user_name;
-        this.token = token;
-    }
+public class Login {
+    @SerializedName("id_user")
+    private int id_user;
+    @SerializedName("count_comment")
+    private int count_comment;
+    @SerializedName("count_sukien")
+    private int count_sukien;
+    @SerializedName("count_view")
+    private int count_view;
+    @SerializedName("device_register")
+    private String device_register;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("ip_register")
+    private String ip_register;
+    @SerializedName("link_avatar")
+    private String link_avatar;
+    @SerializedName("user_name")
+    private String user_name;
+    @SerializedName("token")
+    private String token;
+
 
     public int getId_user() {
         return id_user;

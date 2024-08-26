@@ -33,13 +33,13 @@ import retrofit2.http.Query;
 
 public interface ApiServer {
     @FormUrlEncoded
-    @POST(Server.URI_LOG_IN)
+        @POST("https://api.funface.online/login")
     Call<Login> login(
             @Field("email_or_username") String email,
             @Field("password") String password
     );
     @FormUrlEncoded
-    @POST(Server.URI_SIGN_UP)
+    @POST("https://api.funface.online/register/user")
     Call<Object> signup(
             @Field("email") String email,
             @Field("password") String password,
@@ -48,7 +48,7 @@ public interface ApiServer {
             @Field("ip_register") String registerIp
     );
     @FormUrlEncoded
-    @POST(Server.CHANGE_AVATAR+"{page}")
+    @POST("https://api.funface.online/changeavatar/{page}")
     Call<ChangeAvatar> changeavatar(
             @Path("page") long id,
             @Header("Authorization") String authorization,
@@ -56,42 +56,42 @@ public interface ApiServer {
             @Field("check_img") String check_img
     );
     @Multipart
-    @POST(Server.URI_UPLOAD_IMAGE+ "{page}")
+    @POST( "https://api.funface.online/upload-gensk/{page}")
     Call<String> uploadImage(
             @Path("page") int id_user,
             @Query("type") String fileType,
             @Part MultipartBody.Part src_img
             );
     @FormUrlEncoded
-    @POST(Server.URI_FORGOT_PASS)
+    @POST("https://api.funface.online/reset")
     Call<Message> sendData(
             @Field("email") String email
     );
-    @GET(Server.GET_PROFILE+"{page}")
+    @GET("https://api.funface.online/profile/{page}")
     Call<DetailUser> getUSer(
       @Path("page") long id
     );
     @FormUrlEncoded
-    @POST(Server.CHANGE_PASSWORD+"{page}")
+    @POST("https://api.funface.online/changepassword/{page}")
     Call<Object> changepass(
             @Path("page") long id,
             @Header("Authorization") String authorization,
             @Field("old_password") String oldpassword,
             @Field("new_password") String newpassword
     );
-    @GET(Server.GET_UPLOAD_IMG+"{page}")
+    @GET("https://api.funface.online/images/{page}")
     Call<ImageUploadNam> getImageNam(
             @Path("page") long id,
             @Query("type") String type
     );
     @GET("get/categories_wedding")
     Call<ListCategory> getCategory();
-    @GET("https://databaseswap.mangasocial.online/get/list_image_wedding/1")
+    @GET("https://api.funface.online/get/list_image_wedding/1")
     Call<ListTemple> getListTemple(
              @Query("album") long albumId);
 
 
-    @GET("https://thinkdiff.us/getdata/swap/listimage_wedding")
+    @GET("https://video.funface.online/getdata/swap/2/image")
     Call<SwapEventData> swapImage(
             @Header("Authorization") String authorization,
             @Header("link1") String link1,
@@ -101,9 +101,9 @@ public interface ApiServer {
             @Query("id_user") long id_user,
             @Query("list_folder") String list_folder
     );
-    @GET("https://databaseswap.mangasocial.online/get/list_image/all_wedding_time")
+    @GET("https://api.funface.online/get/list_image/all_wedding_time")
     Call<List<Album>> listAlbum();
-    @GET("https://databaseswap.mangasocial.online/get/list_2_image/id_image_swap_all_id_sk")
+    @GET("https://api.funface.online/get/list_2_image/id_image_swap_all_id_sk")
     Call<DetailAlbum> listDetailAlbum(
             @Query("id_user") int id_user,
             @Query("id_sk") String id_sk
@@ -112,7 +112,7 @@ public interface ApiServer {
     Call<List<Album>> listAlbumById(
             @Query("id_user") int id_user
     );
-    @GET("https://databaseswap.mangasocial.online/get/list_video/all_video_wedding_template")
+    @GET("https://api.funface.online/get/list_video/all_video_wedding_template")
     Call<ListTempleVideo> getListVideo();
     @GET("https://videoswap.mangasocial.online/getdata/genvideo/swap/imagevid/wedding")
     Call<SukienVideoResponse> SwapVideo(
@@ -123,9 +123,9 @@ public interface ApiServer {
             @Query("src_img") String src_img,
             @Query("src_vid_path") int src_vid_path
     );
-    @GET("https://databaseswap.mangasocial.online/get/list_video/all_video_wedding_swap")
+    @GET("https://api.funface.online/get/list_video/all_video_wedding_swap")
     Call<AllVideoResponse> getAllVideoSwapped();
-    @GET("https://databaseswap.mangasocial.online/get/list_video_wedding/id_video_swap")
+    @GET("https://api.funface.online/get/list_video_wedding/id_video_swap")
     Call<VideoByIdResponse> getVideoById(
             @Query("id_user") int id_user
     );

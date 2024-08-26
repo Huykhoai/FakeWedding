@@ -140,7 +140,6 @@ public class UploadActivity extends AppCompatActivity {
 
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ImageUploadNam> call, Throwable t) {
 

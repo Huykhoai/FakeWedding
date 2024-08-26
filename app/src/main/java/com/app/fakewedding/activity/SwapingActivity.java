@@ -270,7 +270,7 @@ public class SwapingActivity extends AppCompatActivity {
                 }else {
                     lockBtnSelectImage();
                     swapImage();
-                     dialogSwap= DialogUpload();
+                     dialogSwap = DialogUpload();
                     dialogSwap.show();
                 }
             }

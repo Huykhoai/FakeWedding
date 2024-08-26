@@ -2,7 +2,7 @@ package com.app.fakewedding.server;
 
 public interface Server {
     String UrlAds = "https://futurelove.online/";
-    String URI = "https://metatechvn.store/";
+    String URI = "https://databaseswap.mangasocial.online/";
     String DOMAIN2 = "https://databaseswap.mangasocial.online/";
     String DOMAIN3 ="https://sakaivn.online/";
     String DOMAIN4 = "https://api.santacall.online/";
@@ -10,7 +10,7 @@ public interface Server {
     String URI_SIGN_UP = "register/user";
 
     String URI_UPLOAD_IMAGE = "upload-gensk/";
-    String URI_FORGOT_PASS = "/reset";
+    String URI_FORGOT_PASS = "reset";
     String GET_PROFILE = "profile/";
     String CHANGE_PASSWORD = "changepassword/";
     String GET_UPLOAD_IMG = "images/";
